@@ -1,0 +1,31 @@
+{
+  "name": "releasify",
+  "version": "1.0.0",
+  "description": "Tool to release in a simpler way your module",
+  "main": "lib/cli.js",
+  "scripts": {
+    "test": "tap test/*.test.js"
+  },
+  "dependencies": {
+    "commist": "^1.1.0",
+    "yargs-parser": "^13.0.0"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1",
+    "tap": "^12.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastify/releasify.git"
+  },
+  "keywords": [
+    "cli",
+    "release"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fastify/releasify/issues"
+  },
+  "homepage": "https://github.com/fastify/releasify#readme"
+}
