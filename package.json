@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "commist": "^1.1.0",
+    "simple-git": "^1.110.0",
     "yargs-parser": "^13.0.0"
   },
   "devDependencies": {
