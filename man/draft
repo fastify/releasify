@@ -1,1 +1,14 @@
-todo man draft
+Usage: releasify draft [--path|-p <path>] [--semver|s <relese>] [--tag|-t <pattern>] [--help|-h]
+  print out the new version that should be released with its changelog
+
+  -p, --path <path>
+      The path to the project to release. Default `pwd`
+
+  -t, --tag <pattern>
+      The pattern of the tag to release. Useful for multi-branch project. Default `v*`
+
+  -s, --semver <release>
+      Force the release type. The value must be major, premajor, minor, preminor, patch, prepatch, or prerelease
+
+  -h, --help
+      Show this help message

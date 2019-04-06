@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Tool to release in a simpler way your module",
   "main": "lib/cli.js",
+  "bin": {
+    "releasify": "lib/cli.js"
+  },
   "scripts": {
     "test": "tap test/*.test.js"
   },
@@ -10,6 +13,7 @@
     "@octokit/rest": "^16.23.2",
     "commist": "^1.1.0",
     "parse-github-url": "^1.0.2",
+    "semver": "^6.0.0",
     "simple-git": "^1.110.0",
     "yargs-parser": "^13.0.0"
   },
