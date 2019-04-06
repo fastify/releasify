@@ -7,6 +7,7 @@
     "test": "tap test/*.test.js"
   },
   "dependencies": {
+    "@octokit/rest": "^16.23.2",
     "commist": "^1.1.0",
     "simple-git": "^1.110.0",
     "yargs-parser": "^13.0.0"
