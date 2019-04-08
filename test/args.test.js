@@ -35,7 +35,7 @@ test('check default values', t => {
     help: false,
     path: process.cwd(),
     tag: undefined,
-    verbose: 'error',
+    verbose: 'warn',
     semver: undefined
   })
 })

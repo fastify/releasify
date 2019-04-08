@@ -11,7 +11,7 @@ Usage: releasify draft [--path|-p <path>] [--semver|s <relese>] [--tag|-t <patte
       Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
 
   -v, --verbose <level>
-      Print out more info. The value must be [debug, info, error]
+      Print out more info. The value must be [debug, info, warn, error]
 
   -h, --help
       Show this help message
