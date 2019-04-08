@@ -7,12 +7,16 @@
     "releasify": "lib/cli.js"
   },
   "scripts": {
-    "test": "tap test/*.test.js"
+    "lint-fix": "standard --fix",
+    "test": "standard && tap --cov -J test/*.test.js"
   },
   "dependencies": {
     "@octokit/rest": "^16.23.2",
+    "ajv": "^6.10.0",
     "commist": "^1.1.0",
     "parse-github-url": "^1.0.2",
+    "pino": "^5.12.2",
+    "pino-pretty": "^2.6.0",
     "semver": "^6.0.0",
     "simple-git": "^1.110.0",
     "yargs-parser": "^13.0.0"
