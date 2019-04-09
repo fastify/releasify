@@ -1,0 +1,8 @@
+{
+  "name": "fake-project",
+  "version": "11.14.42",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foo/bar.git"
+  }
+}

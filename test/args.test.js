@@ -8,13 +8,21 @@ test('parse all args', t => {
   t.plan(1)
 
   const argv = [
-    '--help', 'true'
+    '--help', 'true',
+    '--path', 'a/path',
+    '--tag', 'vPattern',
+    '--verbose', 'info',
+    '--semver', 'major'
   ]
   const parsedArgs = parseArgs(argv)
 
   t.strictDeepEqual(parsedArgs, {
     _: [],
-    help: true
+    help: true,
+    path: 'a/path',
+    tag: 'vPattern',
+    verbose: 'info',
+    semver: 'major'
   })
 })
 
@@ -24,7 +32,11 @@ test('check default values', t => {
 
   t.strictDeepEqual(parsedArgs, {
     _: [],
-    help: false
+    help: false,
+    path: process.cwd(),
+    tag: undefined,
+    verbose: 'warn',
+    semver: undefined
   })
 })
 
@@ -32,13 +44,21 @@ test('parse args with = assignment', t => {
   t.plan(1)
 
   const argv = [
-    '--help=false'
+    '--help=false',
+    '--path="a/path with space"',
+    '--tag=vPattern',
+    '--verbose=info',
+    '--semver=major'
   ]
   const parsedArgs = parseArgs(argv)
 
   t.strictDeepEqual(parsedArgs, {
     _: [],
-    help: false
+    help: false,
+    path: 'a/path with space',
+    tag: 'vPattern',
+    verbose: 'info',
+    semver: 'major'
   })
 })
 
@@ -46,12 +66,20 @@ test('parse args aliases', t => {
   t.plan(1)
 
   const argv = [
-    '-h'
+    '-h',
+    '-p', 'a/path',
+    '-t', 'vPattern',
+    '-v', 'info',
+    '-s', 'major'
   ]
   const parsedArgs = parseArgs(argv)
 
   t.strictDeepEqual(parsedArgs, {
     _: [],
-    help: true
+    help: true,
+    path: 'a/path',
+    tag: 'vPattern',
+    verbose: 'info',
+    semver: 'major'
   })
 })
