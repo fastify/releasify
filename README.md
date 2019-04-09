@@ -30,7 +30,7 @@ The commits shown are
 
 Moreover, if the commit message is written with the pattern: `text describing (#123)`, where
 `(#123)` is the pull request ID, the labels of that PR are downloaded and processed by the template
-engine. These info are fetched from GitHub, keep in mind that there are [rete limits](https://developer.github.com/v3/#rate-limiting).
+engine. These info are fetched from GitHub, keep in mind that there are [rate limits](https://developer.github.com/v3/#rate-limiting).
 
 ```sh
 releasify draft [--path|-p <path>]
