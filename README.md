@@ -20,6 +20,15 @@ npx releasify <command> --help
 Check the [man](man/) directory to see all the arguments detail or type `npx releasify help` 
 to get a preview.
 
+### Publish
+
+You need a [GitHub OAUTH Token][gh-token] to run this command
+
+```sh
+releasify publish [--path|-p <path>]
+                  TODO
+```
+
 ### Draft
 
 Print out the new version that should be released with its changelog listing the commit messages.
@@ -44,3 +53,5 @@ releasify draft [--path|-p <path>]
 ## License
 
 Licensed under [MIT](./LICENSE).
+
+[gh-token][https://help.github.com/articles/creating-an-access-token-for-command-line-use]
