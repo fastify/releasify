@@ -1,1 +1,28 @@
-todo man publish
+Usage: releasify publish [--path|-p <path>] [--semver|-s <relese>] [--tag|-t <pattern>] [--verbose|-v <level>] [--help|-h]
+  publish to npm a new version of a module and create the GitHub Release with the changelogs
+
+  -p, --path <path>
+      The path to the project to release. Default `pwd`
+
+  -t, --tag <pattern>
+      The pattern of the tag to release. Useful for multi-branch project. Default `v${major version of the project}.\d+.\d+`
+
+  -s, --semver <release>
+      Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
+
+  -v, --verbose <level>
+      Print out more info. The value must be [debug, info, warn, error]
+
+  -h, --help
+      Show this help message
+
+
+'remote',
+'branch',
+'npm-access',
+'npm-tag',
+'gh-token',
+'gh-release-draft',
+'gh-release-prerelease'],
+
+bool 'major|m', 'dry-run'],

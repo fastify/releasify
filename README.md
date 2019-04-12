@@ -22,11 +22,15 @@ to get a preview.
 
 ### Publish
 
-You need a [GitHub OAUTH Token][gh-token] to run this command
+You need a [GitHub OAUTH Token][gh-token] with scope `repo:public_repo` to run this command.
 
 ```sh
 releasify publish [--path|-p <path>]
                   TODO
+
+# examples:
+releasify publish -p ./repo-tester -v debug -s patch
+releasify publish -p ./repo-tester -r upstream -b 1.x -t v1.* -v debug -s patch
 ```
 
 ### Draft
