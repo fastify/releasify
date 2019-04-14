@@ -2,6 +2,17 @@
 
 A CLI tool to simplify your release process!
 
+**Important note**:
+this tool simplify a process, if you don't have one, it is the right time to adopt one!
+
+## The Release Process
+
++ use semver
++ never commit to master, except bump of version
++ squash and commit every PR
++ add to every PR some labels like `feature`, `bugfix`, `breaking-change` in order to understand more easily what should be the new semver-version
++ the GitHub releases are your CHANGELOG
+
 ## Install
 
 ```sh
