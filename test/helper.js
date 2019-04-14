@@ -83,6 +83,33 @@ a9a2ba10618d9714d9d0d47d7aef4d779f57224f
             }
 
             cb(null, commits)
+          },
+          status: function (params, cb) {
+            cb(null, {
+              not_added: [],
+              conflicted: [],
+              created: [],
+              deleted: [],
+              modified: [],
+              renamed: [],
+              files: [],
+              staged: [],
+              ahead: 0,
+              behind: 0,
+              tracking: null
+            })
+          },
+          add: function (params, cb) {
+            cb(null)
+          },
+          commit: function (params, cb) {
+            cb(null, { commit: '123', branch: 'master' })
+          },
+          push: function (params, cb) {
+            cb(null)
+          },
+          pull: function (params, cb) {
+            cb(null)
           }
         }
       }
@@ -107,6 +134,26 @@ a9a2ba10618d9714d9d0d47d7aef4d779f57224f
                   id: options.number
                 }
               }
+            }
+          },
+          repos: async function createRelease (options) {
+            return {}
+          }
+        }
+      }
+    }),
+    '../npm': proxyquire('../lib/npm', {
+      'child_process': {
+        spawn: function (node, args, opts) {
+          return {
+            stdout: {
+              setEncoding: function (encoding) {},
+              on: function (event, cb) {}
+            },
+            on: function (event, cb) {
+              setTimeout(() => {
+                cb(0, 'SIG') // eslint-disable-line standard/no-callback-literal
+              }, 0)
             }
           }
         }
