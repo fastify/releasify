@@ -31,7 +31,8 @@ function buildProxyCommand (commandPath, opts = {}) {
     }),
     '../npm': proxyquire('../lib/npm', {
       'child_process': factoryNpm(opts.npm)
-    })
+    }),
+    ...opts.external
   })
 }
 

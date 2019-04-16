@@ -14,9 +14,9 @@ function shouldThrows (cmd = {}, params) {
  * {
  *   tag: {inputChecker: func, throwError: true, history: number of tag commit list}
  *   log: {inputChecker: func, throwError: true, messages: [array of messages to use]}
- *   status: {inputChecker: func, throwError: true, dirty: true} // TODO
+ *   status: {throwError: true, dirty: true, tracking: 'origin/master'}
  *   add: {inputChecker: func, throwError: true}
- *   commit: {inputChecker: func, throwError: true, commit: 'asd', branch: 'asd'} // TODO
+ *   commit: {inputChecker: func, throwError: true, branch: 'master'}
  *   push: {inputChecker: func, throwError: true}
  *   pull: {inputChecker: func, throwError: true}
  * }
@@ -60,26 +60,31 @@ module.exports = function factory (opts = {}) {
 
         cb(null, { all })
       },
-      status: function (params, cb) {
-        if (shouldThrows(opts['status'], params)) {
+      status: function (cb) {
+        if (shouldThrows(opts['status'], null)) {
           cb(new Error('Error throws by settings'))
           return
         }
 
-        // TODO
+        const modified = []
+        if (opts['status'] && opts['status'].dirty === true) {
+          modified.push('dirty-status.js')
+        }
+
+        const tracking = (opts['status'] && opts['status'].tracking) ? opts['status'].tracking : 'origin/master'
 
         cb(null, {
           not_added: [],
           conflicted: [],
           created: [],
           deleted: [],
-          modified: [],
+          modified,
           renamed: [],
           files: [],
           staged: [],
           ahead: 0,
           behind: 0,
-          tracking: null
+          tracking
         })
       },
       add: function (params, cb) {
@@ -96,9 +101,11 @@ module.exports = function factory (opts = {}) {
           return
         }
 
-        // TODO
-
-        cb(null, { commit: '123', branch: 'master' })
+        const commitMessage = {
+          commit: 'HASH123',
+          branch: (opts['commit'] ? opts['commit'] : '') || 'master'
+        }
+        cb(null, commitMessage)
       },
       push: function (params, cb) {
         if (shouldThrows(opts['push'], params)) {

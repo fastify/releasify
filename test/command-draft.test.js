@@ -1,7 +1,7 @@
 'use strict'
 
-const { join } = require('path')
 const t = require('tap')
+const { join } = require('path')
 const h = require('./helper')
 
 const cmd = h.buildProxyCommand('../lib/commands/draft', {
