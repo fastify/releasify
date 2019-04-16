@@ -4,7 +4,11 @@ const { join } = require('path')
 const t = require('tap')
 const h = require('./helper')
 
-const cmd = h.buildProxyCommand('../lib/commands/draft')
+const cmd = h.buildProxyCommand('../lib/commands/draft', {
+  git: { tag: { history: 5 } },
+  github: { }, // default OK
+  npm: { } // default OK
+})
 
 const { test } = t
 
@@ -36,7 +40,7 @@ test('draft a version forced release', async t => {
   t.equals(build.name, 'fake-project')
   t.equals(build.version, '12.0.0')
   t.equals(build.oldVersion, '11.14.42')
-  t.equals(build.message, '📚 PR:\n- This is a commit without PR\n- doc add fastify-schema-constraint to ecosystem (#1573)\n- Update Ecosystem.md (#1570)\n- Update Routes.md (#1579)\n- TOC added to Reply.md (#1582)\n')
+  t.equals(build.message, '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n')
 })
 
 test('draft a suggested release', async t => {
@@ -54,9 +58,23 @@ test('draft a suggested release', async t => {
 })
 
 test('draft the first release', async t => {
-  t.plan(2)
+  t.plan(3)
 
-  const cmd = h.buildProxyCommand('../lib/commands/draft', { emptyTag: true })
+  const cmd = h.buildProxyCommand('../lib/commands/draft', {
+    git: {
+      tag: {
+        history: 0,
+        inputChecker (tagArgs) {
+          t.strictDeepEqual(tagArgs, [
+            '--format=%(objectname)',
+            '--sort=version:refname',
+            '-l',
+            'bad-pattern'
+          ])
+        }
+      }
+    }
+  })
   const opts = buildOptions()
   opts.path = join(__dirname, 'fake-project/')
   opts.tag = 'bad-pattern'
@@ -68,9 +86,22 @@ test('draft the first release', async t => {
 })
 
 test('error management getting PR: works but won\' apply labels', async t => {
-  t.plan(2)
+  t.plan(3)
 
-  const cmd = h.buildProxyCommand('../lib/commands/draft', { githubThrow: true })
+  const cmd = h.buildProxyCommand('../lib/commands/draft', {
+    git: {
+      tag: { history: 2 },
+      log: { messages: ['this is a message without PR', 'this is a message with PR (#12345)'] }
+    },
+    github: {
+      labels: {
+        throwError: true,
+        inputChecker (labelsArgs) {
+          t.strictDeepEqual(labelsArgs, { owner: 'foo', repo: 'bar', issue_number: '12345' })
+        }
+      }
+    }
+  })
   const opts = buildOptions()
   opts.path = join(__dirname, 'fake-project/')
   opts.tag = 'bad-pattern'

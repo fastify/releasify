@@ -1,11 +1,27 @@
 'use strict'
 
-module.exports = function factory ({ githubThrow }) {
+function shouldThrows (cmd = {}, params) {
+  if (cmd.inputChecker) {
+    cmd.inputChecker(params)
+  }
+
+  return cmd.throwError || false
+}
+
+/**
+ *
+ * A possible input is:
+ * {
+ *   labels: {inputChecker: func, throwError: true}
+ *   release: {inputChecker: func, throwError: true}
+ * }
+ */
+module.exports = function factory (opts = {}) {
   return function () {
     return {
       issues: {
         listLabelsOnIssue: async function (options) {
-          if (githubThrow === true) {
+          if (shouldThrows(opts['labels'], options)) {
             throw new Error('HttpError - Fake limit reached')
           }
           return {
@@ -23,7 +39,10 @@ module.exports = function factory ({ githubThrow }) {
         }
       },
       repos: async function createRelease (options) {
-        return {}
+        if (shouldThrows(opts['release'], options)) {
+          throw new Error('HttpError - Release error')
+        }
+        return { data: { html_url: 'my-awesome-release-url' } }
       }
     }
   }

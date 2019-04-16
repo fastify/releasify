@@ -12,7 +12,7 @@
     "test": "standard && tap --cov -J test/*.test.js"
   },
   "dependencies": {
-    "@octokit/rest": "^16.23.2",
+    "@octokit/rest": "^16.24.1",
     "ajv": "^6.10.0",
     "commist": "^1.1.0",
     "parse-github-url": "^1.0.2",

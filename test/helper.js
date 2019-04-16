@@ -24,13 +24,13 @@ function execute (command, params = []) {
 function buildProxyCommand (commandPath, opts = {}) {
   return proxyquire(commandPath, {
     '../git-directory': proxyquire('../lib/git-directory', {
-      'simple-git': factorySimpleGit(opts)
+      'simple-git': factorySimpleGit(opts.git)
     }),
     '../github': proxyquire('../lib/github', {
-      '@octokit/rest': factoryOctokit(opts)
+      '@octokit/rest': factoryOctokit(opts.github)
     }),
     '../npm': proxyquire('../lib/npm', {
-      'child_process': factoryNpm(opts)
+      'child_process': factoryNpm(opts.npm)
     })
   })
 }
