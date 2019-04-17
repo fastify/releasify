@@ -38,11 +38,13 @@ module.exports = function factory (opts = {}) {
           }
         }
       },
-      repos: async function createRelease (options) {
-        if (shouldThrows(opts['release'], options)) {
-          throw new Error('HttpError - Release error')
+      repos: {
+        createRelease: async function (options) {
+          if (shouldThrows(opts['release'], options)) {
+            throw new Error('HttpError - Release error')
+          }
+          return { data: { html_url: 'my-awesome-release-url' } }
         }
-        return { data: { html_url: 'my-awesome-release-url' } }
       }
     }
   }

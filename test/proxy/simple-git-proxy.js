@@ -103,7 +103,7 @@ module.exports = function factory (opts = {}) {
 
         const commitMessage = {
           commit: 'HASH123',
-          branch: (opts['commit'] ? opts['commit'] : '') || 'master'
+          branch: (opts['commit'] ? opts['commit'].branch : '') || 'master'
         }
         cb(null, commitMessage)
       },

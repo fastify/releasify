@@ -1,4 +1,4 @@
-Usage: releasify draft [--path|-p <path>] [--semver|-s <relese>] [--tag|-t <pattern>] [--verbose|-v <level>] [--help|-h]
+Usage: releasify draft [--path|-p <path>] [--semver|-s <release>] [--tag|-t <pattern>] [--verbose|-v <level>] [--help|-h]
   print out the new version that should be released with its changelog
 
   -p, --path <path>

@@ -6,11 +6,11 @@
  *
  * A possible input is:
  * {
- *   ping: { code: 0 },
- *   whoami: { code: 0, data: 'string' },
- *   config: { code: 0, data: 'string' },
- *   version: { code: 0, data: 'string' },
- *   publish: { code: 0, data: 'string' }
+ *   ping: { inputChecker: func, code: 0 },
+ *   whoami: { inputChecker: func, code: 0, data: 'string' },
+ *   config: { inputChecker: func, code: 0, data: 'string' },
+ *   version: { inputChecker: func, code: 0, data: 'string' },
+ *   publish: { inputChecker: func, code: 0, data: 'string' }
  * }
  */
 module.exports = function factory (opts) {
@@ -31,7 +31,11 @@ module.exports = function factory (opts) {
         on: function (event, cb) {
           setTimeout(() => {
             // Default success
-            const { code, data } = commandsCode[command] || { code: 0 }
+            const { code, data, inputChecker } = commandsCode[command] || { code: 0 }
+            if (inputChecker) {
+              inputChecker(args.slice(1))
+            }
+
             if (data && dataCallback) {
               dataCallback(data)
             }
