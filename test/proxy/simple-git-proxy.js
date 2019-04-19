@@ -95,7 +95,7 @@ module.exports = function factory (opts = {}) {
 
         cb(null)
       },
-      commit: function (params, cb) {
+      commit: function (params, options, cb) {
         if (shouldThrows(opts['commit'], params)) {
           cb(new Error('Error throws by settings'))
           return

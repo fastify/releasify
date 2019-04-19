@@ -219,6 +219,37 @@ test('publish a module major', async t => {
   })
 })
 
+test('publish a module minor with no-verify', async t => {
+  t.plan(1)
+
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  opts.npmAccess = 'public'
+  opts.noVerify = true
+  delete opts.tag
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    npm: {
+      ping: { code: 0, data: 'Ping success: {}' },
+      config: { code: 0, data: 'my-registry' },
+      whoami: { code: 0, data: 'John Doo' },
+      publish: { code: 0 }
+    },
+    external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 2 } } }) }
+  })
+
+  const out = await cmd(opts)
+  t.strictDeepEqual(out, {
+    lines: 2,
+    message: '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n',
+    name: 'fake-project',
+    oldVersion: '11.14.42',
+    release: 'minor',
+    version: '11.15.0'
+  })
+})
+
 test('publish a module from a branch that is not master', async t => {
   t.plan(2)
 

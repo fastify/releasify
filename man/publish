@@ -1,4 +1,4 @@
-Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--gh-token|-k <env name var | token>] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--major|-m] [--help|-h] 
+Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--no-verify|-n] [--gh-token|-k <env name var | token>] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--major|-m] [--help|-h] 
   publish to npm a new version of a module and create the GitHub Release with the changelogs
 
   -p, --path <path>
@@ -15,6 +15,9 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
 
   -r, --remote <string>
       The remote git where push the bumped version. Useful if you are releasing. Default `origin`
+
+  -n, --no-verify
+      Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
 
   -b, --branch <string>
       The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
