@@ -3,15 +3,21 @@
 A CLI tool to simplify your release process!
 
 **Important note**:
-this tool simplify a process, if you don't have one, it is the right time to adopt one!
+This tool simplify a process, if you don't have one, it is the right time to adopt one!
 
-## The Release Process
+## The Release Process with `releasify`
 
-+ use semver
-+ never commit to master, except bump of version
-+ squash and commit every PR
-+ add to every PR some labels like `semver-major`, `semver-minor` or `bugfix` in order to understand more easily what should be the new semver-version
-+ the GitHub releases are your CHANGELOG
+This is what you can archive with this tool to release your module:
+
+1. You want to release your `awesome-module`
+1. Go to the local directory an checkout the branch you want to release
+1. Execute `releasify publish` (see the [examples](#Publish)) and the tool will:
+  1. checks that your local repo is aligned with your git remote
+  1. updates the version of your `package.json`
+  1. publishes the module in your `npm` registry using your default settings
+  1. commit&push the bumped version to your remote
+  1. creates a GitHub release with a CHANGELOG description and appling a tag with the same version of the `package.json`
+1. You have done!
 
 ## Install
 
