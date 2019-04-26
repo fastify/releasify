@@ -1,4 +1,4 @@
-Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--no-verify|-n] [--gh-token|-k <env name var | token>] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--major|-m] [--help|-h] 
+Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--no-verify|-n] [--gh-token|-k <env name var | token>] [--gh-release-edit|-e] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--major|-m] [--help|-h] 
   publish to npm a new version of a module and create the GitHub Release with the changelogs
 
   -p, --path <path>
@@ -24,6 +24,9 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
 
   -k, --gh-token <env name var | token>
       The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`
+
+  -e, --gh-release-edit
+      Open an editor to modify the release message before creating it on GitHub
 
   --gh-release-draft
       Create the GitHub Release as draft. Default `false`

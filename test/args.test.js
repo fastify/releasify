@@ -22,6 +22,7 @@ test('parse all args', t => {
     '--npm-access', 'public',
     '--npm-dist-tag', 'next',
     '--gh-token', 'MY_KEY',
+    '--gh-release-edit', 'true',
     '--gh-release-draft', 'true',
     '--gh-release-prerelease', 'true'
   ]
@@ -43,6 +44,7 @@ test('parse all args', t => {
     npmAccess: 'public',
     npmDistTag: 'next',
     ghToken: 'MY_KEY',
+    ghReleaseEdit: true,
     ghReleaseDraft: 'true',
     ghReleasePrerelease: 'true'
   })
@@ -68,6 +70,7 @@ test('check default values', t => {
     npmAccess: undefined,
     npmDistTag: undefined,
     ghToken: 'GITHUB_OAUTH_TOKEN',
+    ghReleaseEdit: false,
     ghReleaseDraft: false,
     ghReleasePrerelease: false
   })
@@ -91,6 +94,7 @@ test('parse args with = assignment', t => {
     '--npm-access=public',
     '--npm-dist-tag=next',
     '--gh-token=MY_KEY',
+    '--gh-release-edit=true',
     '--gh-release-draft=true',
     '--gh-release-prerelease=true'
   ]
@@ -112,6 +116,7 @@ test('parse args with = assignment', t => {
     npmAccess: 'public',
     npmDistTag: 'next',
     ghToken: 'MY_KEY',
+    ghReleaseEdit: true,
     ghReleaseDraft: 'true',
     ghReleasePrerelease: 'true'
   })
@@ -131,7 +136,8 @@ test('parse args aliases', t => {
     '-b', 'v1.x',
     '-n',
     '-a', 'public',
-    '-k', 'MY_KEY'
+    '-k', 'MY_KEY',
+    '-e'
   ]
   const parsedArgs = parseArgs(argv)
 
@@ -151,6 +157,7 @@ test('parse args aliases', t => {
     npmAccess: 'public',
     npmDistTag: undefined,
     ghToken: 'MY_KEY',
+    ghReleaseEdit: true,
     ghReleaseDraft: false,
     ghReleasePrerelease: false
   })
