@@ -17,7 +17,7 @@ This is what you can archive with this tool to release your module:
   1. publishes the module in your `npm` registry using your default settings
   1. commit&push the bumped version to your remote
   1. creates a GitHub release with a CHANGELOG description and appling a tag with the same version of the `package.json`
-1. You have done!
+1. A new version of your module is now published! 🎉
 
 ## Install
 
@@ -62,12 +62,12 @@ releasify publish [--path|-p <path>]
 
 #### Examples
 
-Release minor of "your-module" wuth 2FA on npm:
+Release minor of "your-module" with 2FA on npm and customizing the GitHub release message:
 
 ```sh
 export MY_ENV_OAUTH_KEY 0000000000000000000000000000000000000000
 cd /your-module
-releasify publish -v debug -s minor -k MY_ENV_OAUTH_KEY --npm-otp 123456
+releasify publish -v debug -s minor -k MY_ENV_OAUTH_KEY -e --npm-otp 123456
 ```
 ---
 
