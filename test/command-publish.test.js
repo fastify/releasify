@@ -277,9 +277,9 @@ test('publish a module minor editing the release message', async t => {
           t.equals(tmpFile, fakeFile)
         },
         fs: {
-          readFileSync (tmpFile) {
+          readFile (tmpFile, opts, cb) {
             t.equals(tmpFile, fakeFile)
-            return 'my message'
+            cb(null, 'my message')
           },
           unlink (tmpFile) { t.equals(tmpFile, fakeFile) }
         }

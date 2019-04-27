@@ -29,7 +29,7 @@ module.exports = function factory (opts) {
           }
         },
         on: function (event, cb) {
-          setTimeout(() => {
+          setImmediate(() => {
             // Default success
             const { code, data, inputChecker } = commandsCode[command] || { code: 0 }
             if (inputChecker) {
@@ -40,7 +40,7 @@ module.exports = function factory (opts) {
               dataCallback(data)
             }
             cb(code) // eslint-disable-line standard/no-callback-literal
-          }, 0)
+          })
         }
       }
     }
