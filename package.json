@@ -12,14 +12,16 @@
     "test": "standard && tap --cov -J test/*.test.js"
   },
   "dependencies": {
-    "@octokit/rest": "^16.23.2",
+    "@octokit/rest": "^16.24.1",
     "ajv": "^6.10.0",
     "commist": "^1.1.0",
+    "open": "^6.2.0",
     "parse-github-url": "^1.0.2",
     "pino": "^5.12.2",
     "pino-pretty": "^2.6.0",
     "semver": "^6.0.0",
     "simple-git": "^1.110.0",
+    "temp-write": "^3.4.0",
     "yargs-parser": "^13.0.0"
   },
   "devDependencies": {

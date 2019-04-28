@@ -1,1 +1,50 @@
-todo man publish
+Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--no-verify|-n] [--gh-token|-k <env name var | token>] [--gh-release-edit|-e] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--major|-m] [--help|-h] 
+  publish to npm a new version of a module and create the GitHub Release with the changelogs
+
+  -p, --path <path>
+      The path to the project to release. Default `pwd`
+
+  -t, --tag <pattern>
+      The pattern of the tag to release. Useful for multi-branch project. It is necessary to find the last tag released of that pipeline. Default `v${major version of the project}.\d+.\d+`
+
+  -s, --semver <release>
+      Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
+
+  -v, --verbose <level>
+      Print out more info. The value must be [debug, info, warn, error]. Default `warn`
+
+  -r, --remote <string>
+      The remote git where push the bumped version. Useful if you are releasing. Default `origin`
+
+  -n, --no-verify
+      Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
+
+  -b, --branch <string>
+      The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
+
+  -k, --gh-token <env name var | token>
+      The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`
+
+  -e, --gh-release-edit
+      Open an editor to modify the release message before creating it on GitHub
+
+  --gh-release-draft
+      Create the GitHub Release as draft. Default `false`
+
+  --gh-release-prerelease
+      Create the GitHub Release as pre-release. Default `false`
+
+  -a, --npm-access <string>
+      It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
+
+  --npm-dist-tag <string>
+      It will add a npm tag to the module, like `beta` or `next`
+
+  --npm-otp <code>
+      It will provide the otp code to the npm publish
+
+  -m, --major
+      It will unlock the release of a major release
+
+  -h, --help
+      Show this help message
