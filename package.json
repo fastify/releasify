@@ -1,5 +1,5 @@
 {
-  "name": "@fastify/releasify",
+  "name": "releasify",
   "version": "0.2.0",
   "private": false,
   "description": "Tool to release in a simpler way your module",
@@ -37,7 +37,7 @@
     "cli",
     "release"
   ],
-  "author": "",
+  "author": "Manuel Spigolon <behemoth89@gmail.com> (https://github.com/Eomm)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fastify/releasify/issues"
