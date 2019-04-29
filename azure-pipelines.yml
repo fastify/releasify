@@ -1,19 +1,23 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- master
-
 pool:
-  vmImage: 'Ubuntu-16.04'
+  vmImage: 'ubuntu-16.04'
+
+strategy:
+  matrix:
+    # node_8_x:
+    #   node_version: 8.x
+    node_10_x:
+      node_version: 10.x
+    node_11_x:
+      node_version: 11.x
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - task: NodeTool@0
+    inputs:
+      versionSpec: $(node_version)
+    displayName: Install Node.js
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - bash: npm install
+    displayName: Install dependencies
+
+  - bash: npm test
+    displayName: Test
