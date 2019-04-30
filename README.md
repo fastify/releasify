@@ -32,6 +32,8 @@ npx releasify <command>
 npx releasify <command> --help
 ```
 
+**Note:** You need Node.js >= 10 to use this CLI.
+
 ## Commands
 
 Check the [man](man/) directory to see all the arguments detail or type `npx releasify help` 
@@ -108,4 +110,4 @@ releasify draft [--path|-p <path>]
 
 Licensed under [MIT](./LICENSE).
 
-[gh-token][https://help.github.com/articles/creating-an-access-token-for-command-line-use]
+[gh-token]: https://help.github.com/articles/creating-an-access-token-for-command-line-use
