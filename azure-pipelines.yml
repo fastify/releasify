@@ -1,14 +1,26 @@
-pool:
-  vmImage: 'ubuntu-16.04'
-
 strategy:
   matrix:
-    # node_8_x:
-    #   node_version: 8.x
-    node_10_x:
+    linux_node_10:
+      imageName: 'ubuntu-16.04'
       node_version: 10.x
-    node_11_x:
+    mac_node_10:
+      imageName: 'macos-10.13'
+      node_version: 10.x
+    windows_node_10:
+      imageName: 'vs2017-win2016'
+      node_version: 10.x
+    linux_node_11:
+      imageName: 'ubuntu-16.04'
       node_version: 11.x
+    mac_node_11:
+      imageName: 'macos-10.13'
+      node_version: 11.x
+    windows_node_11:
+      imageName: 'vs2017-win2016'
+      node_version: 11.x
+
+pool:
+  vmImage: $(imageName)
 
 steps:
   - task: NodeTool@0
