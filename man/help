@@ -1,1 +1,13 @@
-todo man help
+Install via npm:
+  npm i releasify -g
+
+Usage: releasify <command>
+
+where <command> is one of:
+  draft, publish
+
+releasify <command> -h 
+  quick help on <command>
+
+Usage via npx:
+  npx releasify <command> args
