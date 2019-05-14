@@ -73,14 +73,14 @@ test('try to publish with a wrong token', t => {
 test('npm ping failed', t => {
   t.plan(1)
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
-    npm: { ping: { code: 0, data: '' } },
+    npm: { ping: { code: 1 } },
     external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
   })
   const opts = buildOptions()
   opts.semver = 'minor'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('Ping command doesn\'t returned success'))
+  t.rejects(() => cmd(opts), new Error('npm ping returned code 1 and signal undefined'))
 })
 
 test('publish a module never released', async t => {
