@@ -1,6 +1,6 @@
 {
   "name": "releasify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "description": "Tool to release in a simpler way your module",
   "main": "lib/cli.js",
