@@ -17,6 +17,7 @@ function buildOptions () {
     path: 'a/path',
     tag: null,
     verbose: 'error',
+    fromCommit: 'HEAD',
     semver: null
   }
   return Object.assign({}, options)
@@ -24,7 +25,7 @@ function buildOptions () {
 
 test('mandatory options', t => {
   t.plan(2)
-  t.rejects(() => cmd({}), new Error("should have required property 'path',  should have required property 'verbose'"))
+  t.rejects(() => cmd({}), new Error("should have required property 'path',  should have required property 'fromCommit',  should have required property 'verbose'"))
   t.rejects(() => cmd(buildOptions()), new Error('.tag should be string, .semver should be string, .semver should be equal to one of the allowed values'))
 })
 

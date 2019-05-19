@@ -23,6 +23,7 @@ function buildOptions () {
     major: false,
     remote: 'origin',
     branch: 'master',
+    fromCommit: 'HEAD',
     ghToken: 'INVALID_TOKEN'
   }
   return Object.assign({}, options)
