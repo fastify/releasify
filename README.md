@@ -107,6 +107,21 @@ releasify draft [--path|-p <path>]        ➡ The path to the project to draft. 
                 [--help|-h]               ➡ Show this help message
 ```
 
+#### Examples
+
+View the release message for your next release:
+
+```sh
+releasify draft
+```
+---
+
+Build release messages between old commits in order to create a changelog if you don't have one:
+
+```sh
+releasify draft --from-commit 93c914beb07eede9635d1234c20cff0e41f093a1 --to-commit 8797fc32812fb988957145877429aa937af292f1
+```
+
 
 ## License
 
