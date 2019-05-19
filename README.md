@@ -98,11 +98,13 @@ Moreover, if the commit message is written with the pattern: `text describing (#
 engine. These info are fetched from GitHub, keep in mind that there are [rate limits](https://developer.github.com/v3/#rate-limiting).
 
 ```sh
-releasify draft [--path|-p <path>]
-                [--tag|-t <pattern>]
-                [--semver|-s <release>]
-                [--verbose|-v <level>]
-                [--help|-h]
+releasify draft [--path|-p <path>]        ➡ The path to the project to draft. Default `pwd`
+                [--tag|-t <pattern>]      ➡ The pattern of the tag to draft. Useful for multi-branch project. Default `v${major version of the project}.\d+.\d+`
+                [--from-commit <hash>]    ➡ Specify a commit hash where to start to generate the release message. Default `HEAD`
+                [--to-commit <hash>]      ➡ Specify a commit hash where to stop to generate the release message. The --tag arg will be ignored
+                [--semver|-s <release>]   ➡ Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
+                [--verbose|-v <level>]    ➡ Print out more info. The value must be [debug, info, warn, error]
+                [--help|-h]               ➡ Show this help message
 ```
 
 
