@@ -17,6 +17,7 @@ function buildOptions () {
     path: 'a/path',
     tag: null,
     verbose: 'error',
+    fromCommit: 'HEAD',
     semver: null
   }
   return Object.assign({}, options)
@@ -24,7 +25,7 @@ function buildOptions () {
 
 test('mandatory options', t => {
   t.plan(2)
-  t.rejects(() => cmd({}), new Error("should have required property 'path',  should have required property 'verbose'"))
+  t.rejects(() => cmd({}), new Error("should have required property 'path',  should have required property 'fromCommit',  should have required property 'verbose'"))
   t.rejects(() => cmd(buildOptions()), new Error('.tag should be string, .semver should be string, .semver should be equal to one of the allowed values'))
 })
 
@@ -55,6 +56,36 @@ test('draft a suggested release', async t => {
   // TODO: now the suggestedRelease is not implemented
   t.equals(build.version, '11.14.42')
   t.equals(build.oldVersion, '11.14.42')
+})
+
+test('draft a range commit release message', async t => {
+  t.plan(1)
+
+  const opts = buildOptions()
+  opts.path = join(__dirname, 'fake-project/')
+  const commitHash = '123abc'.repeat(6)
+  opts.fromCommit = `${commitHash}4`
+  opts.toCommit = `${commitHash}7`
+  delete opts.tag // autosense
+  delete opts.semver // auto-calculate
+
+  const cmd = h.buildProxyCommand('../lib/commands/draft', {
+    git: {
+      tag: { inputChecker () { t.fail('this function must not be called') } },
+      log: {
+        inputChecker (logArgs) {
+          t.strictDeepEqual(logArgs, {
+            from: opts.fromCommit,
+            to: opts.toCommit
+          })
+        }
+      }
+    }, // generate 10 commit history
+    github: { }, // default OK
+    npm: { } // default OK
+  })
+
+  await cmd(opts)
 })
 
 test('draft the first release', async t => {

@@ -1,4 +1,4 @@
-Usage: releasify draft [--path|-p <path>] [--semver|-s <release>] [--tag|-t <pattern>] [--verbose|-v <level>] [--help|-h]
+Usage: releasify draft [--path|-p <path>] [--semver|-s <release>] [--tag|-t <pattern>] [--from-commit <hash>] [--to-commit <hash>] [--verbose|-v <level>] [--help|-h]
   print out the new version that should be released with its changelog
 
   -p, --path <path>
@@ -6,6 +6,12 @@ Usage: releasify draft [--path|-p <path>] [--semver|-s <release>] [--tag|-t <pat
 
   -t, --tag <pattern>
       The pattern of the tag to draft. Useful for multi-branch project. Default `v${major version of the project}.\d+.\d+`
+
+  --from-commit <hash>
+      Specify a commit hash where to start to generate the release message. Default `HEAD`
+
+  --to-commit <hash>
+      Specify a commit hash where to stop to generate the release message. If set the --tag attribute will be ignored
 
   -s, --semver <release>
       Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]

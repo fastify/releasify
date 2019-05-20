@@ -39,27 +39,27 @@ npx releasify <command> --help
 Check the [man](man/) directory to see all the arguments detail or type `npx releasify help` 
 to get a preview.
 
-### Publish
+### ☄ Publish
 
 You need a [GitHub OAUTH Token][gh-token] with scope `repo:public_repo` to run this command.
 
 ```sh
-releasify publish [--path|-p <path>]
-                  [--tag|-t <pattern>]
-                  [--semver|-s <release>]
-                  [--verbose|-v <level>]
-                  [--remote|-r <string>]
-                  [--branch|-b <string>]
-                  [--no-verify|-n]
-                  [--gh-token|-k <env name var | token>]
-                  [--gh-release-edit|-e]
-                  [--gh-release-draft]
-                  [--gh-release-prerelease]
-                  [--npm-access|-a <string>]
-                  [--npm-dist-tag <string>]
-                  [--npm-otp <code>]
-                  [--major|-m]
-                  [--help|-h]
+releasify publish [--path|-p <path>]             ➡ The path to the project to release. Default `pwd`
+                  [--tag|-t <pattern>]           ➡ The pattern of the tag to release. Useful for multi-branch project. It is necessary to find the last tag released of that pipeline. Default `v${major version of the project}.\d+.\d+`
+                  [--semver|-s <release>]        ➡ Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
+                  [--verbose|-v <level>]         ➡ Print out more info. The value must be [debug, info, warn, error]. Default `warn`
+                  [--remote|-r <string>]         ➡ The remote git where push the bumped version. Useful if you are releasing. Default `origin`
+                  [--branch|-b <string>]         ➡ The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
+                  [--no-verify|-n]               ➡ Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
+                  [--gh-token|-k <env | token>]  ➡ The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`
+                  [--gh-release-edit|-e]         ➡ Open an editor to modify the release message before creating it on GitHub
+                  [--gh-release-draft]           ➡ Create the GitHub Release as draft. Default `false`
+                  [--gh-release-prerelease]      ➡ Create the GitHub Release as pre-release. Default `false`
+                  [--npm-access|-a <string>]     ➡ It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
+                  [--npm-dist-tag <string>]      ➡ It will add a npm tag to the module, like `beta` or `next`
+                  [--npm-otp <code>]             ➡ It will provide the otp code to the npm publish
+                  [--major|-m]                   ➡ It will unlock the release of a major release
+                  [--help|-h]                    ➡ Show this help message
 ```
 
 #### Examples
@@ -85,7 +85,7 @@ Explanation:
 + `-t`: it will be used to explore the git history to find the commit messages. This is necessary when your tag name pattern doesn't follow the `v<semver-version>` pattern. By default the value of this parameter is `v${major version read from package.json}*`
 
 
-### Draft
+### ☄ Draft
 
 Print out the new version that should be released with its changelog listing the commit messages.
 
@@ -98,11 +98,28 @@ Moreover, if the commit message is written with the pattern: `text describing (#
 engine. These info are fetched from GitHub, keep in mind that there are [rate limits](https://developer.github.com/v3/#rate-limiting).
 
 ```sh
-releasify draft [--path|-p <path>]
-                [--tag|-t <pattern>]
-                [--semver|-s <release>]
-                [--verbose|-v <level>]
-                [--help|-h]
+releasify draft [--path|-p <path>]        ➡ The path to the project to draft. Default `pwd`
+                [--tag|-t <pattern>]      ➡ The pattern of the tag to draft. Useful for multi-branch project. Default `v${major version of the project}.\d+.\d+`
+                [--from-commit <hash>]    ➡ Specify a commit hash where to start to generate the release message. Default `HEAD`
+                [--to-commit <hash>]      ➡ Specify a commit hash where to stop to generate the release message. The --tag arg will be ignored
+                [--semver|-s <release>]   ➡ Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
+                [--verbose|-v <level>]    ➡ Print out more info. The value must be [debug, info, warn, error]
+                [--help|-h]               ➡ Show this help message
+```
+
+#### Examples
+
+View the release message for your next release:
+
+```sh
+releasify draft
+```
+---
+
+Build release messages between old commits in order to create a changelog if you don't have one:
+
+```sh
+releasify draft --from-commit 93c914beb07eede9635d1234c20cff0e41f093a1 --to-commit 8797fc32812fb988957145877429aa937af292f1
 ```
 
 
