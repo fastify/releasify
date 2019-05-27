@@ -1,5 +1,6 @@
 'use strict'
 
+const { EventEmitter } = require('events')
 const t = require('tap')
 const { join } = require('path')
 const proxyquire = require('proxyquire')
@@ -274,8 +275,17 @@ test('publish a module minor editing the release message', async t => {
       './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 2 } } }),
       '../editor': proxyquire('../lib/editor', {
         'temp-write': async (message, filename) => fakeFile,
-        open: async (tmpFile, args) => {
-          t.equals(tmpFile, fakeFile)
+        'open-editor': {
+          make: (tmpFile) => {
+            t.equals(tmpFile.pop(), fakeFile)
+          }
+        },
+        child_process: {
+          spawn: () => {
+            const e = new EventEmitter()
+            setImmediate(() => { e.emit('exit', 0) })
+            return e
+          }
         },
         fs: {
           readFile (tmpFile, opts, cb) {
