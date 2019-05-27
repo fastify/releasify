@@ -15,7 +15,7 @@
     "@octokit/rest": "^16.24.1",
     "ajv": "^6.10.0",
     "commist": "^1.1.0",
-    "open": "^6.2.0",
+    "open-editor": "^2.0.1",
     "parse-github-url": "^1.0.2",
     "pino": "^5.12.2",
     "pino-pretty": "^2.6.0",
