@@ -310,6 +310,51 @@ test('publish a module minor editing the release message', async t => {
   })
 })
 
+test('editor error', t => {
+  t.plan(2)
+
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  opts.ghReleaseEdit = true
+  delete opts.tag
+
+  const fakeFile = 'fake-temp'
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    npm: {
+      ping: { code: 0, data: 'Ping success: {}' },
+      config: { code: 0, data: 'my-registry' },
+      whoami: { code: 0, data: 'John Doo' },
+      publish: { code: 0 }
+    },
+    external: {
+      './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 2 } } }),
+      '../editor': proxyquire('../lib/editor', {
+        'temp-write': async (message, filename) => fakeFile,
+        'open-editor': {
+          make: (tmpFile) => {
+            t.equals(tmpFile.pop(), fakeFile)
+            return { arguments: [] }
+          }
+        },
+        child_process: {
+          spawn: () => {
+            const e = new EventEmitter()
+            setImmediate(() => { e.emit('exit', 1) })
+            return e
+          }
+        },
+        fs: {
+          readFile () { t.fail('The file has not been edited') }
+        }
+      })
+    }
+  })
+
+  t.rejects(() => cmd(opts), new Error('Something went wrong creating the relase on GitHub.'))
+})
+
 test('publish a module from a branch that is not master', async t => {
   t.plan(2)
 
