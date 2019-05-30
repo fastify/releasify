@@ -278,6 +278,7 @@ test('publish a module minor editing the release message', async t => {
         'open-editor': {
           make: (tmpFile) => {
             t.equals(tmpFile.pop(), fakeFile)
+            return { arguments: [] }
           }
         },
         child_process: {
