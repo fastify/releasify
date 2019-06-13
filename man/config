@@ -1,0 +1,11 @@
+Usage: releasify draft [--arg|-a <string>] [--value <string>] [--help|-h]
+  store your args to a file
+
+  -a, --arg <string>
+      blabla
+
+  --value <string>
+      blabla
+
+  -h, --help
+      Show this help message
