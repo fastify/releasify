@@ -1,11 +1,11 @@
-Usage: releasify draft [--arg|-a <string>] [--value <string>] [--help|-h]
+Usage: releasify draft [--arg <string>] [--value <string>] [--help|-h]
   store your args to a file
 
-  -a, --arg <string>
-      blabla
+  --arg <string>
+      The arg name or alias where save the default value
 
-  --value <string>
-      blabla
+  --value <string> [optional]
+      The default value to set. If not set the value must be typed
 
   -h, --help
       Show this help message

@@ -16,6 +16,7 @@
     "ajv": "^6.10.0",
     "commist": "^1.1.0",
     "conf": "^4.1.0",
+    "enquirer": "^2.3.1",
     "open-editor": "^2.0.1",
     "parse-github-url": "^1.0.2",
     "pino": "^5.12.2",
