@@ -4,7 +4,7 @@ const { test } = require('tap')
 const h = require('./helper')
 
 // TODO move this array
-const commands = ['help', 'login', 'whoami', 'publish', 'draft']
+const commands = ['help', 'config', 'publish', 'draft']
 
 test('show help messages', async t => {
   t.plan(1 + commands.length)

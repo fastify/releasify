@@ -1,11 +1,8 @@
-Usage: releasify draft [--arg <string>] [--value <string>] [--help|-h]
-  store your args to a file
+Usage: releasify config [--arg <string>] [--help|-h]
+  store your default arguments' values to a human-unreadable file
 
   --arg <string>
-      The arg name or alias where save the default value
-
-  --value <string> [optional]
-      The default value to set. If not set the value must be typed
+      The argument name or alias to save
 
   -h, --help
       Show this help message
