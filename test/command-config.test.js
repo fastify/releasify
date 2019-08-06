@@ -43,7 +43,7 @@ test('save config data', async t => {
 
   const build = await cmd(opts)
   t.equals(build.arg, opts.arg)
-  t.match(build.path.toLowerCase(), /releasify-nodejs\\config\\releasify.json$/)
+  t.match(build.path.toLowerCase(), /releasify-nodejs[/\\].*releasify.json$/)
 
   t.test('correct value saved', t => {
     const localConf = LocalConf()
