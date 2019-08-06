@@ -19,7 +19,7 @@ function buildOptions () {
 test('mandatory options', t => {
   t.plan(2)
   t.rejects(() => cmd({}), new Error("should have required property 'arg'"))
-  t.rejects(() => cmd(buildOptions()), new Error('.verbose should be equal to one of the allowed values'))
+  t.rejects(() => cmd(buildOptions()), new Error('.arg should be equal to one of the allowed values, .verbose should be equal to one of the allowed values'))
 })
 
 test('save config data', async t => {
