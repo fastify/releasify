@@ -1,8 +1,11 @@
-Usage: releasify config [--arg <string>] [--help|-h]
+Usage: releasify config [--arg <string>] [--verbose|-v <level>] [--help|-h]
   store your default arguments' values to a human-unreadable file
 
   --arg <string>
       The argument name or alias to save
+
+  -v, --verbose <level>
+      Print out more info. The value must be [debug, info, warn, error]
 
   -h, --help
       Show this help message
