@@ -4,7 +4,7 @@ Install via npm:
 Usage: releasify <command>
 
 where <command> is one of:
-  draft, publish
+  draft, publish, config
 
 releasify <command> -h 
   quick help on <command>
