@@ -123,6 +123,33 @@ releasify draft --from-commit 93c914beb07eede9635d1234c20cff0e41f093a1 --to-comm
 ```
 
 
+### ⚙ Config
+
+Save your default settings to speed up even more your release!
+Whan you run this command a prompt will ask you the value to store for the `arg` setting.
+The values are saved in an encrypted file, so it is human-unreadable.
+
+```sh
+releasify config [--arg <string>]          ➡ The argument to save
+                 [--verbose|-v <level>]    ➡ Print out more info. The value must be [debug, info, warn, error]
+                 [--help|-h]               ➡ Show this help message
+```
+
+#### Examples
+
+Save your github token (then digit it in the prompt):
+
+```sh
+releasify config --arg gh-token
+```
+---
+
+Save the default logging and print out where the store file is saved:
+
+```sh
+releasify config --arg verbose -v info
+```
+
 ## License
 
 Licensed under [MIT](./LICENSE).
