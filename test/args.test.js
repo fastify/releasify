@@ -3,6 +3,7 @@
 const t = require('tap')
 const { test } = t
 const parseArgs = require('../lib/args')
+const proxyquire = require('proxyquire')
 
 test('parse all args', t => {
   t.plan(1)
@@ -189,4 +190,31 @@ test('get GitHub Token from env', t => {
   const parsedArgs = parseArgs(argv)
 
   t.strictEqual(parsedArgs.ghToken, process.env['MY_ENV_KEY'])
+})
+
+test('autoload config parameters', t => {
+  t.plan(5)
+
+  const store = {
+    'gh-token': '0000000000000000000000000000000000000000',
+    'gh-release-edit': 'true',
+    'no-verify': 'true',
+    verbose: 'debug',
+    remote: 'remo'
+  }
+  const parseArgs = proxyquire('../lib/args', {
+    './local-conf': function () {
+      // the values stored in the config of the user
+      return { store }
+    }
+  })
+
+  const argv = [ '--remote', 'arg-remote' ]
+  const parsedArgs = parseArgs(argv)
+
+  t.strictEqual(parsedArgs.ghToken, store['gh-token'])
+  t.strictEqual(parsedArgs.ghReleaseEdit, true)
+  t.strictEqual(parsedArgs.noVerify, true)
+  t.strictEqual(parsedArgs.verbose, 'debug')
+  t.strictEqual(parsedArgs.remote, 'arg-remote')
 })
