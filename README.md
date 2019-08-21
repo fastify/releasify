@@ -3,21 +3,25 @@
 A CLI tool to simplify your release process!
 
 **Important note**:
-This tool simplify a process, if you don't have one, it is the right time to adopt one!
+This tool simplifies your release process, if you don't have one, it is the right time to start adopting one!
 
 ## The Release Process with `releasify`
 
-This is what you can archive with this tool to release your module:
+This is what you can archive with `releasify`:
 
-1. You want to release your `awesome-module`
-1. Go to the local directory an checkout the branch you want to release
-1. Execute `releasify publish` (see the [examples](#Publish)) and the tool will:
-  1. checks that your local repo is aligned with your git remote
-  1. updates the version of your `package.json`
-  1. publishes the module in your `npm` registry using your default settings
-  1. commit&push the bumped version to your remote
-  1. creates a GitHub release with a CHANGELOG description and appling a tag with the same version of the `package.json`
-1. A new version of your module is now published! 🎉
+  1. You want to release your `awesome-module`
+  2. Go to the local directory and checkout the branch you want to release
+  3. Execute `releasify publish` (see the [examples](#Publish)).
+  
+At this point, the tool will perform the following actions for you:
+
+  * It checks that your local repo is aligned with your git remote
+  * It updates the version of your `package.json` (version bump)
+  * It publishes the module in the `npm` registry using your default settings
+  * It commits & pushes the bumped version to your remote
+  * It creates a GitHub release with a CHANGELOG description also creating a tag with the same version as per your `package.json`
+
+A new version of your module is now published! 🎉
 
 ## Install
 
@@ -64,7 +68,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
 
 #### Examples
 
-Release minor of "your-module" with 2FA on npm and customizing the GitHub release message:
+The following example shows how to release a minor version of `your-module` to NPM (using 2FA authentication) with a custom GitHub release message:
 
 ```sh
 export MY_ENV_OAUTH_KEY 0000000000000000000000000000000000000000
@@ -73,7 +77,7 @@ releasify publish -v debug -s minor -k MY_ENV_OAUTH_KEY -e --npm-otp 123456
 ```
 ---
 
-Release a patch of your "mod" in the branch `1.x`, assuming disabled 2FA on npm and the OAUTH token in env as `GITHUB_OAUTH_TOKEN`
+This example releases a patch version of `mod` in the branch `1.x`. Here 2FA auth is disabled on NPM and the GitHub OAUTH token in stored as an environment variable as `GITHUB_OAUTH_TOKEN`:
 
 
 ```sh
