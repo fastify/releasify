@@ -25,6 +25,9 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
   -k, --gh-token <env name var | token>
       The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`
 
+  -l, --gh-group-by-label <label1,label2>
+      Group the commits in the release message by PR's labels
+
   -e, --gh-release-edit
       Open an editor to modify the release message before creating it on GitHub
 
