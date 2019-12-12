@@ -59,11 +59,12 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--gh-release-edit|-e]         ➡ Open an editor to modify the release message before creating it on GitHub
                   [--gh-release-draft]           ➡ Create the GitHub Release as draft. Default `false`
                   [--gh-release-prerelease]      ➡ Create the GitHub Release as pre-release. Default `false`
-                  [--npm-access|-a <string>]     ➡ It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
-                  [--npm-dist-tag <string>]      ➡ It will add a npm tag to the module, like `beta` or `next`
-                  [--npm-otp <code>]             ➡ It will provide the otp code to the npm publish
-                  [--major|-m]                   ➡ It will unlock the release of a major release
-                  [--help|-h]                    ➡ Show this help message
+                  [--gh-group-by-label|-l <label>] ➡ Group the commits in the changelog message by PR's labels
+                  [--npm-access|-a <string>]       ➡ It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
+                  [--npm-dist-tag <string>]        ➡ It will add a npm tag to the module, like `beta` or `next`
+                  [--npm-otp <code>]               ➡ It will provide the otp code to the npm publish
+                  [--major|-m]                     ➡ It will unlock the release of a major release
+                  [--help|-h]                      ➡ Show this help message
 ```
 
 #### Examples
@@ -88,6 +89,29 @@ Explanation:
 + `-b`: it will check that your local repository is in the right branch and it will be used in the bump phase
 + `-t`: it will be used to explore the git history to find the commit messages. This is necessary when your tag name pattern doesn't follow the `v<semver-version>` pattern. By default the value of this parameter is `v${major version read from package.json}*`
 
+---
+
+The following example release a major version of `your-module` to NPM with a grouped GitHub release message.
+If a PR has many matching labels, it will be assigned to the first label in the command line.
+If a PR doesn't have any match with the label in the args, it will append at the end of the message.
+
+```sh
+cd /your-module
+releasify publish -v debug -m -s major -l feature -l bugfix -l documentation
+
+# example message:
+**feature**:
+- four this is feature (#4)
+
+
+**bugfix**:
+- two this is a bugfix (#2)
+- three this is a doc bugfix (#3)
+
+
+**commit**:
+- five this is a typescript pr (#5)
+```
 
 ### ☄ Draft
 
@@ -108,6 +132,7 @@ releasify draft [--path|-p <path>]        ➡ The path to the project to draft. 
                 [--to-commit <hash>]      ➡ Specify a commit hash where to stop to generate the release message. The --tag arg will be ignored
                 [--semver|-s <release>]   ➡ Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
                 [--verbose|-v <level>]    ➡ Print out more info. The value must be [debug, info, warn, error]
+                [--gh-group-by-label|-l <label>] ➡ Group the commits in the changelog message by PR's labels
                 [--help|-h]               ➡ Show this help message
 ```
 

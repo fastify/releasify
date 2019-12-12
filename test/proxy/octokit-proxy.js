@@ -27,7 +27,7 @@ module.exports = function factory (opts = {}) {
 
           // customize the output labels
           let data
-          if (opts['labels'] && opts['labels'].data) {
+          if (opts['labels']) {
             data = opts['labels'].data
           } else {
             data = [{ name: 'documentation' }]

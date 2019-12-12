@@ -25,7 +25,8 @@ function buildOptions () {
     remote: 'origin',
     branch: 'master',
     fromCommit: 'HEAD',
-    ghToken: 'INVALID_TOKEN'
+    ghToken: 'INVALID_TOKEN',
+    ghGroupByLabel: []
   }
   return Object.assign({}, options)
 }
