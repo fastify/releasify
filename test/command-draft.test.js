@@ -161,7 +161,7 @@ test('group changelog message by labels', async t => {
 
   const cmd = h.buildProxyCommand('../lib/commands/draft', {
     git: {
-      tag: { history: 4 },
+      tag: { history: 5 },
       log: { messages: [
         'one this is a message without PR',
         'two this is a bugfix (#2)',
@@ -192,6 +192,7 @@ test('group changelog message by labels', async t => {
 
 
 **commit**:
+- one this is a message without PR
 - five this is a typescript pr (#5)
 
 
@@ -215,7 +216,7 @@ test('group changelog order', async t => {
 
   const cmd = h.buildProxyCommand('../lib/commands/draft', {
     git: {
-      tag: { history: 4 },
+      tag: { history: 5 },
       log: { messages: [
         'one this is a message without PR',
         'two this is a bugfix (#2)',
@@ -249,6 +250,7 @@ test('group changelog order', async t => {
 
 
 **commit**:
+- one this is a message without PR
 - five this is a typescript pr (#5)
 
 
