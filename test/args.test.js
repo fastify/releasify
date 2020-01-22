@@ -28,7 +28,9 @@ test('parse all args', t => {
     '--gh-token', 'MY_KEY',
     '--gh-release-edit', 'true',
     '--gh-release-draft', 'true',
-    '--gh-release-prerelease', 'true'
+    '--gh-release-prerelease', 'true',
+    '--gh-group-by-label', 'bugfix',
+    '--gh-group-by-label', 'docs'
   ]
   const parsedArgs = parseArgs(argv)
 
@@ -53,7 +55,8 @@ test('parse all args', t => {
     ghToken: 'MY_KEY',
     ghReleaseEdit: true,
     ghReleaseDraft: 'true',
-    ghReleasePrerelease: 'true'
+    ghReleasePrerelease: 'true',
+    ghGroupByLabel: ['bugfix', 'docs']
   })
 })
 
@@ -82,7 +85,8 @@ test('check default values', t => {
     ghToken: 'GITHUB_OAUTH_TOKEN',
     ghReleaseEdit: false,
     ghReleaseDraft: false,
-    ghReleasePrerelease: false
+    ghReleasePrerelease: false,
+    ghGroupByLabel: []
   })
 })
 
@@ -109,7 +113,9 @@ test('parse args with = assignment', t => {
     '--gh-token=MY_KEY',
     '--gh-release-edit=true',
     '--gh-release-draft=true',
-    '--gh-release-prerelease=true'
+    '--gh-release-prerelease=true',
+    '--gh-group-by-label=bugfix',
+    '--gh-group-by-label=docs'
   ]
   const parsedArgs = parseArgs(argv)
 
@@ -134,7 +140,8 @@ test('parse args with = assignment', t => {
     ghToken: 'MY_KEY',
     ghReleaseEdit: true,
     ghReleaseDraft: 'true',
-    ghReleasePrerelease: 'true'
+    ghReleasePrerelease: 'true',
+    ghGroupByLabel: ['bugfix', 'docs']
   })
 })
 
@@ -153,7 +160,9 @@ test('parse args aliases', t => {
     '-n',
     '-a', 'public',
     '-k', 'MY_KEY',
-    '-e'
+    '-e',
+    '-l', 'bugfix',
+    '-l', 'docs'
   ]
   const parsedArgs = parseArgs(argv)
 
@@ -178,7 +187,8 @@ test('parse args aliases', t => {
     ghToken: 'MY_KEY',
     ghReleaseEdit: true,
     ghReleaseDraft: false,
-    ghReleasePrerelease: false
+    ghReleasePrerelease: false,
+    ghGroupByLabel: ['bugfix', 'docs']
   })
 })
 

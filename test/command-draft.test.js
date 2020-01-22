@@ -18,7 +18,8 @@ function buildOptions () {
     tag: null,
     verbose: 'error',
     fromCommit: 'HEAD',
-    semver: null
+    semver: null,
+    ghGroupByLabel: []
   }
   return Object.assign({}, options)
 }
@@ -141,4 +142,117 @@ test('error management getting PR: works but won\' apply labels', async t => {
   const build = await cmd(opts)
   t.equals(build.version, '11.14.42')
   t.equals(build.oldVersion, '11.14.42')
+})
+
+test('group changelog message by labels', async t => {
+  t.plan(1)
+
+  const prLabels = [
+    [{ name: 'bugfix' }], // #2
+    [{ name: 'bugfix' }, { name: 'documentation' }], // #3
+    [{ name: 'feature' }], // #4
+    [{ name: 'typescript' }] // #5
+  ]
+
+  const dataRulette = {}
+  Object.defineProperty(dataRulette, 'data', {
+    get: function () { return prLabels.pop() }
+  })
+
+  const cmd = h.buildProxyCommand('../lib/commands/draft', {
+    git: {
+      tag: { history: 5 },
+      log: { messages: [
+        'one this is a message without PR',
+        'two this is a bugfix (#2)',
+        'three this is a doc bugfix (#3)',
+        'four this is feature (#4)',
+        'five this is a typescript pr (#5)'
+      ] }
+    },
+    github: {
+      labels: dataRulette
+    }
+  })
+  const opts = buildOptions()
+  opts.path = join(__dirname, 'fake-project/')
+  opts.ghGroupByLabel = ['feature', 'bugfix', 'documentation']
+  delete opts.tag // autosense
+  delete opts.semver // auto-calculate
+
+  const build = await cmd(opts)
+  t.equals(build.message,
+    `**feature**:
+- four this is feature (#4)
+
+
+**bugfix**:
+- two this is a bugfix (#2)
+- three this is a doc bugfix (#3)
+
+
+**commit**:
+- one this is a message without PR
+- five this is a typescript pr (#5)
+
+
+`)
+})
+
+test('group changelog order', async t => {
+  t.plan(1)
+
+  const prLabels = [
+    [{ name: 'bugfix' }], // #2
+    [{ name: 'bugfix' }, { name: 'documentation' }], // #3
+    [{ name: 'feature' }], // #4
+    [{ name: 'typescript' }] // #5
+  ]
+
+  const dataRulette = {}
+  Object.defineProperty(dataRulette, 'data', {
+    get: function () { return prLabels.pop() }
+  })
+
+  const cmd = h.buildProxyCommand('../lib/commands/draft', {
+    git: {
+      tag: { history: 5 },
+      log: { messages: [
+        'one this is a message without PR',
+        'two this is a bugfix (#2)',
+        'three this is a doc bugfix (#3)',
+        'four this is feature (#4)',
+        'five this is a typescript pr (#5)'
+      ] }
+    },
+    github: {
+      labels: dataRulette
+    }
+  })
+  const opts = buildOptions()
+  opts.path = join(__dirname, 'fake-project/')
+  opts.ghGroupByLabel = ['documentation', 'feature', 'bugfix']
+  delete opts.tag // autosense
+  delete opts.semver // auto-calculate
+
+  const build = await cmd(opts)
+  t.equals(build.message,
+    `**documentation**:
+- three this is a doc bugfix (#3)
+
+
+**feature**:
+- four this is feature (#4)
+
+
+**bugfix**:
+- two this is a bugfix (#2)
+
+
+**commit**:
+- one this is a message without PR
+- five this is a typescript pr (#5)
+
+
+`)
 })

@@ -19,5 +19,8 @@ Usage: releasify draft [--path|-p <path>] [--semver|-s <release>] [--tag|-t <pat
   -v, --verbose <level>
       Print out more info. The value must be [debug, info, warn, error]
 
+  -l, --gh-group-by-label <label>
+      Group the commits in the release message by PR's labels
+
   -h, --help
       Show this help message
