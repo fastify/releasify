@@ -1,5 +1,5 @@
 Usage: releasify config [--arg <string>] [--verbose|-v <level>] [--help|-h]
-  store your default arguments' values to a human-unreadable file
+  store your default arguments' values to a human-unreadable file. The value will be asked in an interactive shell
 
   --arg <string>
       The argument name or alias to save
