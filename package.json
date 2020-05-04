@@ -12,24 +12,24 @@
     "test": "standard && tap --cov -J test/*.test.js"
   },
   "dependencies": {
-    "@octokit/rest": "^16.24.1",
-    "ajv": "^6.10.0",
+    "@octokit/rest": "^16.43.1",
+    "ajv": "^6.12.2",
     "commist": "^1.1.0",
     "conf": "^4.1.0",
-    "enquirer": "^2.3.1",
+    "enquirer": "^2.3.5",
     "open-editor": "^2.0.1",
     "parse-github-url": "^1.0.2",
-    "pino": "^5.12.2",
-    "pino-pretty": "^2.6.0",
-    "semver": "^6.0.0",
-    "simple-git": "^1.110.0",
+    "pino": "^5.17.0",
+    "pino-pretty": "^2.6.1",
+    "semver": "^6.3.0",
+    "simple-git": "^1.132.0",
     "temp-write": "^3.4.0",
-    "yargs-parser": "^13.0.0"
+    "yargs-parser": "^13.1.2"
   },
   "devDependencies": {
-    "proxyquire": "^2.1.0",
+    "proxyquire": "^2.1.3",
     "standard": "^12.0.1",
-    "tap": "^12.6.1"
+    "tap": "^12.7.0"
   },
   "repository": {
     "type": "git",
