@@ -1,5 +1,7 @@
 # releasify
 
+![ci](https://github.com/fastify/releasify/workflows/ci/badge.svg)
+
 A CLI tool to simplify your release process!
 
 **Important note**:
