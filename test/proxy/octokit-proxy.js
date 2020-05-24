@@ -20,7 +20,7 @@ module.exports = function factory (opts = {}) {
   return { Octokit: builder }
 
   function builder () {
-    const okto = {
+    return {
       issues: {
         listLabelsOnIssue: async function (options) {
           if (shouldThrows(opts['labels'], options)) {
@@ -58,7 +58,5 @@ module.exports = function factory (opts = {}) {
         }
       }
     }
-
-    return okto
   }
 }
