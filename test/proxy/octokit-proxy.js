@@ -17,7 +17,9 @@ function shouldThrows (cmd = {}, params) {
  * }
  */
 module.exports = function factory (opts = {}) {
-  return function () {
+  return { Octokit: builder }
+
+  function builder () {
     const okto = {
       issues: {
         listLabelsOnIssue: async function (options) {
@@ -57,6 +59,6 @@ module.exports = function factory (opts = {}) {
       }
     }
 
-    return { Octokit: okto }
+    return okto
   }
 }
