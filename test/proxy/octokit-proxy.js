@@ -17,7 +17,9 @@ function shouldThrows (cmd = {}, params) {
  * }
  */
 module.exports = function factory (opts = {}) {
-  return function () {
+  return { Octokit: builder }
+
+  function builder () {
     return {
       issues: {
         listLabelsOnIssue: async function (options) {
