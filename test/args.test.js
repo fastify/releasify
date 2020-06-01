@@ -54,8 +54,8 @@ test('parse all args', t => {
     npmDistTag: 'next',
     ghToken: 'MY_KEY',
     ghReleaseEdit: true,
-    ghReleaseDraft: 'true',
-    ghReleasePrerelease: 'true',
+    ghReleaseDraft: true,
+    ghReleasePrerelease: true,
     ghGroupByLabel: ['bugfix', 'docs']
   })
 })
@@ -139,9 +139,33 @@ test('parse args with = assignment', t => {
     npmDistTag: 'next',
     ghToken: 'MY_KEY',
     ghReleaseEdit: true,
-    ghReleaseDraft: 'true',
-    ghReleasePrerelease: 'true',
+    ghReleaseDraft: true,
+    ghReleasePrerelease: true,
     ghGroupByLabel: ['bugfix', 'docs']
+  })
+})
+
+test('parse boolean args', t => {
+  t.plan(1)
+
+  const argv = [
+    '--help',
+    '--major',
+    '--dry-run',
+    '--no-verify',
+    '--gh-release-edit',
+    '--gh-release-draft',
+    '--gh-release-prerelease'
+  ]
+  const parsedArgs = parseArgs(argv)
+  t.like(parsedArgs, {
+    help: true,
+    major: true,
+    dryRun: true,
+    noVerify: true,
+    ghReleaseEdit: true,
+    ghReleaseDraft: true,
+    ghReleasePrerelease: true
   })
 })
 
