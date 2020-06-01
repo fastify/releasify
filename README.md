@@ -36,6 +36,9 @@ npx releasify <command>
 
 // show man of a command
 npx releasify <command> --help
+
+// check the version installed
+releasify -v
 ```
 
 **Note:** You need Node.js >= 10 to use this CLI.
