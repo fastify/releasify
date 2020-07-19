@@ -1,0 +1,37 @@
+name: "releasify"
+description: "Publish your modules when you need and wherever you are"
+branding:
+  icon: "package"
+  color: "orange"
+inputs:
+  semver:
+    description: "The semver to use"
+    required: true
+    default: "patch"
+  remote:
+    description: "The remote git where push the bumped version"
+    required: true
+    default: "origin"
+  branch:
+    description: "The branch you want to release"
+    required: true
+    default: "master"
+  npm-otp:
+    description: "It will provide the otp code to the npm publish"
+    required: true
+  npm-dist-tag:
+    description: "It will add a npm tag to the module, like beta or next"
+    required: false
+  major:
+    description: "It will unlock the release of a major release"
+    required: false
+runs:
+  using: "docker"
+  image: ".github/action/Dockerfile"
+  args:
+    - ${{ inputs.semver }}
+    - ${{ inputs.remote }}
+    - ${{ inputs.branch }}
+    - ${{ inputs.npm-otp }}
+    - ${{ inputs.npm-dist-tag }}
+    - ${{ inputs.major }}
