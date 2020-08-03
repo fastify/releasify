@@ -18,7 +18,7 @@
     "@octokit/rest": "^16.43.1",
     "ajv": "^6.12.2",
     "commist": "^1.1.0",
-    "conf": "^4.1.0",
+    "conf": "^7.1.1",
     "enquirer": "^2.3.5",
     "open-editor": "^2.0.1",
     "parse-github-url": "^1.0.2",
