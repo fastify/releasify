@@ -11,6 +11,9 @@
     "lint-fix": "standard --fix",
     "test": "standard && tap --cov -J test/*.test.js"
   },
+  "engines": {
+    "node": ">=10"
+  },
   "dependencies": {
     "@octokit/rest": "^16.43.1",
     "ajv": "^6.12.2",
