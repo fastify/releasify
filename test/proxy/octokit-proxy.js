@@ -23,14 +23,14 @@ module.exports = function factory (opts = {}) {
     return {
       issues: {
         listLabelsOnIssue: async function (options) {
-          if (shouldThrows(opts['labels'], options)) {
+          if (shouldThrows(opts.labels, options)) {
             throw new Error('HttpError - Fake limit reached')
           }
 
           // customize the output labels
           let data
-          if (opts['labels']) {
-            data = opts['labels'].data
+          if (opts.labels) {
+            data = opts.labels.data
           } else {
             data = [{ name: 'documentation' }]
           }
@@ -51,7 +51,7 @@ module.exports = function factory (opts = {}) {
       },
       repos: {
         createRelease: async function (options) {
-          if (shouldThrows(opts['release'], options)) {
+          if (shouldThrows(opts.release, options)) {
             throw new Error('HttpError - Release error')
           }
           return { data: { html_url: 'my-awesome-release-url' } }

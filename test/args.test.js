@@ -219,11 +219,11 @@ test('parse args aliases', t => {
 test('get GitHub Token from env', t => {
   t.plan(1)
 
-  process.env['MY_ENV_KEY'] = 'my_env_value'
-  const argv = [ '-k', 'MY_ENV_KEY' ]
+  process.env.MY_ENV_KEY = 'my_env_value'
+  const argv = ['-k', 'MY_ENV_KEY']
   const parsedArgs = parseArgs(argv)
 
-  t.strictEqual(parsedArgs.ghToken, process.env['MY_ENV_KEY'])
+  t.strictEqual(parsedArgs.ghToken, process.env.MY_ENV_KEY)
 })
 
 test('autoload config parameters', t => {
@@ -243,7 +243,7 @@ test('autoload config parameters', t => {
     }
   })
 
-  const argv = [ '--remote', 'arg-remote' ]
+  const argv = ['--remote', 'arg-remote']
   const parsedArgs = parseArgs(argv)
 
   t.strictEqual(parsedArgs.ghToken, store['gh-token'])

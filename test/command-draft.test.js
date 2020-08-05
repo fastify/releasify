@@ -162,13 +162,15 @@ test('group changelog message by labels', async t => {
   const cmd = h.buildProxyCommand('../lib/commands/draft', {
     git: {
       tag: { history: 5 },
-      log: { messages: [
-        'one this is a message without PR',
-        'two this is a bugfix (#2)',
-        'three this is a doc bugfix (#3)',
-        'four this is feature (#4)',
-        'five this is a typescript pr (#5)'
-      ] }
+      log: {
+        messages: [
+          'one this is a message without PR',
+          'two this is a bugfix (#2)',
+          'three this is a doc bugfix (#3)',
+          'four this is feature (#4)',
+          'five this is a typescript pr (#5)'
+        ]
+      }
     },
     github: {
       labels: dataRulette
@@ -217,13 +219,15 @@ test('group changelog order', async t => {
   const cmd = h.buildProxyCommand('../lib/commands/draft', {
     git: {
       tag: { history: 5 },
-      log: { messages: [
-        'one this is a message without PR',
-        'two this is a bugfix (#2)',
-        'three this is a doc bugfix (#3)',
-        'four this is feature (#4)',
-        'five this is a typescript pr (#5)'
-      ] }
+      log: {
+        messages: [
+          'one this is a message without PR',
+          'two this is a bugfix (#2)',
+          'three this is a doc bugfix (#3)',
+          'four this is feature (#4)',
+          'five this is a typescript pr (#5)'
+        ]
+      }
     },
     github: {
       labels: dataRulette
