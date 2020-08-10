@@ -24,7 +24,7 @@
     "parse-github-url": "^1.0.2",
     "pino": "^5.17.0",
     "pino-pretty": "^2.6.1",
-    "semver": "^6.3.0",
+    "semver": "^7.3.2",
     "simple-git": "^1.132.0",
     "temp-write": "^3.4.0",
     "yargs-parser": "^13.1.2"
