@@ -26,7 +26,7 @@
     "pino-pretty": "^2.6.1",
     "semver": "^7.3.2",
     "simple-git": "^1.132.0",
-    "temp-write": "^3.4.0",
+    "temp-write": "^4.0.0",
     "yargs-parser": "^13.1.2"
   },
   "devDependencies": {
