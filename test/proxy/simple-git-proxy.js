@@ -28,13 +28,13 @@ module.exports = function factory (opts = {}) {
     }
     return {
       tag: function (params, cb) {
-        if (shouldThrows(opts['tag'], params)) {
+        if (shouldThrows(opts.tag, params)) {
           cb(new Error('Error throws by settings'))
           return
         }
 
         const history = []
-        for (let i = 0; i < (opts['tag'].history || 0); i++) {
+        for (let i = 0; i < (opts.tag.history || 0); i++) {
           history.push('123abc'.repeat(6) + i)
         }
 
@@ -42,12 +42,12 @@ module.exports = function factory (opts = {}) {
         cb(null, history.join('\n'))
       },
       log: function (params, cb) {
-        if (shouldThrows(opts['log'], params)) {
+        if (shouldThrows(opts.log, params)) {
           cb(new Error('Error throws by settings'))
           return
         }
 
-        const messagesSet = opts['log'] ? (opts['log'].messages || []) : []
+        const messagesSet = opts.log ? (opts.log.messages || []) : []
         const all = state.history.map(hash => ({
           hash,
           date: '2019-04-06 15:45:43 +0200',
@@ -61,17 +61,17 @@ module.exports = function factory (opts = {}) {
         cb(null, { all })
       },
       status: function (cb) {
-        if (shouldThrows(opts['status'], null)) {
+        if (shouldThrows(opts.status, null)) {
           cb(new Error('Error throws by settings'))
           return
         }
 
         const modified = []
-        if (opts['status'] && opts['status'].dirty === true) {
+        if (opts.status && opts.status.dirty === true) {
           modified.push('dirty-status.js')
         }
 
-        const tracking = (opts['status'] && opts['status'].tracking) ? opts['status'].tracking : 'origin/master'
+        const tracking = (opts.status && opts.status.tracking) ? opts.status.tracking : 'origin/master'
 
         cb(null, {
           not_added: [],
@@ -88,7 +88,7 @@ module.exports = function factory (opts = {}) {
         })
       },
       add: function (params, cb) {
-        if (shouldThrows(opts['add'], params)) {
+        if (shouldThrows(opts.add, params)) {
           cb(new Error('Error throws by settings'))
           return
         }
@@ -96,19 +96,19 @@ module.exports = function factory (opts = {}) {
         cb(null)
       },
       commit: function (params, options, cb) {
-        if (shouldThrows(opts['commit'], params)) {
+        if (shouldThrows(opts.commit, params)) {
           cb(new Error('Error throws by settings'))
           return
         }
 
         const commitMessage = {
           commit: 'HASH123',
-          branch: (opts['commit'] ? opts['commit'].branch : '') || 'master'
+          branch: (opts.commit ? opts.commit.branch : '') || 'master'
         }
         cb(null, commitMessage)
       },
       push: function (params, cb) {
-        if (shouldThrows(opts['push'], params)) {
+        if (shouldThrows(opts.push, params)) {
           cb(new Error('Error throws by settings'))
           return
         }
@@ -116,7 +116,7 @@ module.exports = function factory (opts = {}) {
         cb(null)
       },
       pull: function (params, cb) {
-        if (shouldThrows(opts['pull'], params)) {
+        if (shouldThrows(opts.pull, params)) {
           cb(new Error('Error throws by settings'))
           return
         }

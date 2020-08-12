@@ -31,7 +31,8 @@ test('save config data', async t => {
 
   const inputValue = 'fake input string'
 
-  const cmd = h.buildProxyCommand('../lib/commands/config', { external:
+  const cmd = h.buildProxyCommand('../lib/commands/config', {
+    external:
     {
       enquirer: {
         Input: function () {

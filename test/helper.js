@@ -30,7 +30,7 @@ function buildProxyCommand (commandPath, opts = {}) {
       '@octokit/rest': factoryOctokit(opts.github)
     }),
     '../npm': proxyquire('../lib/npm', {
-      'child_process': factoryNpm(opts.npm)
+      child_process: factoryNpm(opts.npm)
     }),
     ...opts.external
   })
