@@ -25,7 +25,35 @@ At this point, the tool will perform the following actions for you:
 
 A new version of your module is now published! 🎉
 
-## Install
+## Action Usage
+
+TODO
+
+```yml
+name: release
+on:
+  workflow_dispatch:
+    inputs:
+      # Define your input parameters and default
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fastif/releasify@ TODO # DEFINE A TAG
+        with:
+          semver: ${{ github.event.inputs.semver }}
+          remote: ${{ github.event.inputs.remote }}
+          branch: ${{ github.event.inputs.branch }}
+          npm-otp: ${{ github.event.inputs.npm-otp }}
+          npm-dist-tag: ${{ github.event.inputs.npm-dist-tag }}
+          major: ${{ github.event.inputs.major }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+## CLI Usage
 
 ```sh
 // global install

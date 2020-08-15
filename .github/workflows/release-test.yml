@@ -1,0 +1,41 @@
+name: release
+on:
+  workflow_dispatch:
+    inputs:
+      semver:
+        description: "The semver to use"
+        required: true
+        default: "patch"
+      remote:
+        description: "The remote git where push the bumped version"
+        required: true
+        default: "origin"
+      branch:
+        description: "The branch you want to release"
+        required: true
+        default: "master"
+      npm-otp:
+        description: "It will provide the otp code to the npm publish"
+        required: true
+      npm-dist-tag:
+        description: "It will add a npm tag to the module, like beta or next"
+        required: false
+      major:
+        description: "It will unlock the release of a major release"
+        required: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: fastif/releasify@github-action
+        with:
+          semver: ${{ github.event.inputs.semver }}
+          remote: ${{ github.event.inputs.remote }}
+          branch: ${{ github.event.inputs.branch }}
+          npm-otp: ${{ github.event.inputs.npm-otp }}
+          npm-dist-tag: ${{ github.event.inputs.npm-dist-tag }}
+          major: ${{ github.event.inputs.major }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
