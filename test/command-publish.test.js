@@ -203,9 +203,10 @@ test('publish a module major', async t => {
       ping: { code: 0, data: 'Ping success: {}' },
       config: { code: 0, data: 'my-registry' },
       whoami: { code: 0, data: 'John Doo' },
-      publish: { code: 0,
+      publish: {
+        code: 0,
         inputChecker (publishArgs) {
-          t.strictDeepEqual(publishArgs, [ '--tag', opts.npmDistTag, '--access', opts.npmAccess, '--otp', opts.npmOtp ])
+          t.strictDeepEqual(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess, '--otp', opts.npmOtp])
         }
       }
     },
