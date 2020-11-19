@@ -39,7 +39,7 @@ module.exports = function factory (opts) {
             if (data && dataCallback) {
               dataCallback(data)
             }
-            cb(code) // eslint-disable-line standard/no-callback-literal
+            cb(code)
           })
         }
       }
