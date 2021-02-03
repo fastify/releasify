@@ -15,7 +15,7 @@
     "node": ">=10"
   },
   "dependencies": {
-    "@octokit/rest": "^16.43.1",
+    "@octokit/rest": "^18.1.0",
     "ajv": "^6.12.2",
     "commist": "^1.1.0",
     "conf": "^7.1.2",
