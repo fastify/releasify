@@ -27,7 +27,7 @@
     "semver": "^7.3.2",
     "simple-git": "^1.132.0",
     "temp-write": "^4.0.0",
-    "yargs-parser": "^13.1.2"
+    "yargs-parser": "^20.2.5"
   },
   "devDependencies": {
     "proxyquire": "^2.1.3",
