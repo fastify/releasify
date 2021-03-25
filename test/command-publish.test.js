@@ -58,7 +58,7 @@ test('try to publish 0 new commits', t => {
   opts.semver = 'patch'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('There are ZERO commit to relase!'))
+  t.rejects(() => cmd(opts), new Error('There are ZERO commit to release!'))
 })
 
 test('try to publish with a wrong token', t => {
@@ -171,7 +171,7 @@ test('fails to build the release', t => {
     external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
   })
 
-  t.rejects(() => cmd(opts), new Error("Something went wrong creating the relase on GitHub.\nThe 'npm publish' and 'git push' has been done!\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)\n"))
+  t.rejects(() => cmd(opts), new Error("Something went wrong creating the release on GitHub.\nThe 'npm publish' and 'git push' has been done!\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)\n"))
 })
 
 test('try to publish a module major', t => {
@@ -354,7 +354,7 @@ test('editor error', t => {
     }
   })
 
-  t.rejects(() => cmd(opts), new Error('Something went wrong creating the relase on GitHub.'))
+  t.rejects(() => cmd(opts), new Error('Something went wrong creating the release on GitHub.'))
 })
 
 test('publish a module from a branch that is not master', async t => {
