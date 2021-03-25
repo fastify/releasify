@@ -1,6 +1,11 @@
 # releasify
 
-![ci](https://github.com/fastify/releasify/workflows/ci/badge.svg)
+![CI](https://github.com/fastify/releasify/workflows/CI/badge.svg)
+[![NPM version](https://img.shields.io/npm/v/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
+[![NPM downloads](https://img.shields.io/npm/dm/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![codecov](https://codecov.io/gh/fastify/releasify/branch/master/graph/badge.svg)](https://codecov.io/gh/fastify/releasify)
+[![Known Vulnerabilities](https://snyk.io/test/github/fastify/releasify/badge.svg)](https://snyk.io/test/github/fastify/releasify)
 
 A CLI tool to simplify your release process!
 
@@ -9,7 +14,7 @@ This tool simplifies your release process, if you don't have one, it is the righ
 
 ## The Release Process with `releasify`
 
-This is what you can archive with `releasify`:
+This is what you can achieve with `releasify`:
 
   1. You want to release your `awesome-module`
   2. Go to the local directory and checkout the branch you want to release
