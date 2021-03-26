@@ -20,7 +20,7 @@
     "commist": "^1.1.0",
     "conf": "^7.1.2",
     "enquirer": "^2.3.5",
-    "open-editor": "^2.0.1",
+    "open-editor": "^3.0.0",
     "parse-github-url": "^1.0.2",
     "pino": "^6.5.0",
     "pino-pretty": "^4.1.0",
