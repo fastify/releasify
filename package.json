@@ -17,7 +17,7 @@
   "dependencies": {
     "@octokit/rest": "^18.5.0",
     "ajv": "^6.12.2",
-    "commist": "^1.1.0",
+    "commist": "^2.0.0",
     "conf": "^10.0.0",
     "enquirer": "^2.3.5",
     "open-editor": "^3.0.0",
