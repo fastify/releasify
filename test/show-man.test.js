@@ -16,7 +16,7 @@ test('show help messages', async t => {
       cli.stdout.setEncoding('utf8')
       cli.stdout.on('data', output => {
         const contentHelp = h.readFileHelp(command)
-        sub.equals(output, contentHelp)
+        sub.equal(output, contentHelp)
       })
     })
   })
@@ -27,7 +27,7 @@ test('show help messages', async t => {
     cli.stdout.setEncoding('utf8')
     cli.stdout.on('data', output => {
       const contentHelp = h.readFileHelp('help')
-      sub.equals(output, contentHelp)
+      sub.equal(output, contentHelp)
     })
   })
 })
