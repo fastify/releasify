@@ -43,12 +43,12 @@ test('save config data', async t => {
   })
 
   const build = await cmd(opts)
-  t.equals(build.arg, opts.arg)
+  t.equal(build.arg, opts.arg)
   t.match(build.path.toLowerCase(), /releasify-nodejs[/\\].*releasify.json$/)
 
   t.test('correct value saved', t => {
     const localConf = LocalConf()
     t.plan(1)
-    t.equals(localConf.get('semver'), inputValue)
+    t.equal(localConf.get('semver'), inputValue)
   })
 })

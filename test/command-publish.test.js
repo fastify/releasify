@@ -98,8 +98,8 @@ test('publish a module never released', async t => {
     github: {
       release: {
         inputChecker (releaseParams) {
-          t.equals(releaseParams.tag_name, 'v11.15.0')
-          t.equals(releaseParams.name, releaseParams.tag_name)
+          t.equal(releaseParams.tag_name, 'v11.15.0')
+          t.equal(releaseParams.name, releaseParams.tag_name)
         }
       }
     },
@@ -111,7 +111,7 @@ test('publish a module never released', async t => {
   delete opts.tag
 
   const out = await cmd(opts)
-  t.strictDeepEqual(out, {
+  t.strictSame(out, {
     lines: 1,
     message: '📚 PR:\n- this is a standard comment (#123)\n',
     name: 'fake-project',
@@ -206,7 +206,7 @@ test('publish a module major', async t => {
       publish: {
         code: 0,
         inputChecker (publishArgs) {
-          t.strictDeepEqual(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess, '--otp', opts.npmOtp])
+          t.strictSame(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess, '--otp', opts.npmOtp])
         }
       }
     },
@@ -214,7 +214,7 @@ test('publish a module major', async t => {
   })
 
   const out = await cmd(opts)
-  t.strictDeepEqual(out, {
+  t.strictSame(out, {
     lines: 3,
     message: '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n',
     name: 'fake-project',
@@ -245,7 +245,7 @@ test('publish a module minor with no-verify', async t => {
   })
 
   const out = await cmd(opts)
-  t.strictDeepEqual(out, {
+  t.strictSame(out, {
     lines: 2,
     message: '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n',
     name: 'fake-project',
@@ -279,7 +279,7 @@ test('publish a module minor editing the release message', async t => {
         'temp-write': async (message, filename) => fakeFile,
         'open-editor': {
           make: (tmpFile) => {
-            t.equals(tmpFile.pop(), fakeFile)
+            t.equal(tmpFile.pop(), fakeFile)
             return { arguments: [] }
           }
         },
@@ -292,17 +292,17 @@ test('publish a module minor editing the release message', async t => {
         },
         fs: {
           readFile (tmpFile, opts, cb) {
-            t.equals(tmpFile, fakeFile)
+            t.equal(tmpFile, fakeFile)
             cb(null, 'my message')
           },
-          unlink (tmpFile) { t.equals(tmpFile, fakeFile) }
+          unlink (tmpFile) { t.equal(tmpFile, fakeFile) }
         }
       })
     }
   })
 
   const out = await cmd(opts)
-  t.strictDeepEqual(out, {
+  t.strictSame(out, {
     lines: 2,
     message: 'my message',
     name: 'fake-project',
@@ -336,7 +336,7 @@ test('editor error', t => {
         'temp-write': async (message, filename) => fakeFile,
         'open-editor': {
           make: (tmpFile) => {
-            t.equals(tmpFile.pop(), fakeFile)
+            t.equal(tmpFile.pop(), fakeFile)
             return { arguments: [] }
           }
         },
@@ -379,7 +379,7 @@ test('publish a module from a branch that is not master', async t => {
     github: {
       release: {
         inputChecker (releaseParams) {
-          t.equals(releaseParams.target_commitish, opts.branch)
+          t.equal(releaseParams.target_commitish, opts.branch)
         }
       }
     },
@@ -387,7 +387,7 @@ test('publish a module from a branch that is not master', async t => {
   })
 
   const out = await cmd(opts)
-  t.strictDeepEqual(out, {
+  t.strictSame(out, {
     lines: 1,
     message: '📚 PR:\n- this is a standard comment (#123)\n',
     name: 'fake-project',

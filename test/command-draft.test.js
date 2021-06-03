@@ -39,10 +39,10 @@ test('draft a version forced release', async t => {
   delete opts.tag // autosense
 
   const build = await cmd(opts)
-  t.equals(build.name, 'fake-project')
-  t.equals(build.version, '12.0.0')
-  t.equals(build.oldVersion, '11.14.42')
-  t.equals(build.message, '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n')
+  t.equal(build.name, 'fake-project')
+  t.equal(build.version, '12.0.0')
+  t.equal(build.oldVersion, '11.14.42')
+  t.equal(build.message, '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n')
 })
 
 test('draft a suggested release', async t => {
@@ -55,8 +55,8 @@ test('draft a suggested release', async t => {
 
   const build = await cmd(opts)
   // TODO: now the suggestedRelease is not implemented
-  t.equals(build.version, '11.14.42')
-  t.equals(build.oldVersion, '11.14.42')
+  t.equal(build.version, '11.14.42')
+  t.equal(build.oldVersion, '11.14.42')
 })
 
 test('draft a range commit release message', async t => {
@@ -75,7 +75,7 @@ test('draft a range commit release message', async t => {
       tag: { inputChecker () { t.fail('this function must not be called') } },
       log: {
         inputChecker (logArgs) {
-          t.strictDeepEqual(logArgs, {
+          t.strictSame(logArgs, {
             from: opts.fromCommit,
             to: opts.toCommit
           })
@@ -97,7 +97,7 @@ test('draft the first release', async t => {
       tag: {
         history: 0,
         inputChecker (tagArgs) {
-          t.strictDeepEqual(tagArgs, [
+          t.strictSame(tagArgs, [
             '--format=%(objectname)',
             '--sort=version:refname',
             '-l',
@@ -113,8 +113,8 @@ test('draft the first release', async t => {
   delete opts.semver // auto-calculate
 
   const build = await cmd(opts)
-  t.equals(build.version, '11.14.42')
-  t.equals(build.oldVersion, '11.14.42')
+  t.equal(build.version, '11.14.42')
+  t.equal(build.oldVersion, '11.14.42')
 })
 
 test('error management getting PR: works but won\' apply labels', async t => {
@@ -129,7 +129,7 @@ test('error management getting PR: works but won\' apply labels', async t => {
       labels: {
         throwError: true,
         inputChecker (labelsArgs) {
-          t.strictDeepEqual(labelsArgs, { owner: 'foo', repo: 'bar', issue_number: '12345' })
+          t.strictSame(labelsArgs, { owner: 'foo', repo: 'bar', issue_number: '12345' })
         }
       }
     }
@@ -140,8 +140,8 @@ test('error management getting PR: works but won\' apply labels', async t => {
   delete opts.semver // auto-calculate
 
   const build = await cmd(opts)
-  t.equals(build.version, '11.14.42')
-  t.equals(build.oldVersion, '11.14.42')
+  t.equal(build.version, '11.14.42')
+  t.equal(build.oldVersion, '11.14.42')
 })
 
 test('group changelog message by labels', async t => {
@@ -183,7 +183,7 @@ test('group changelog message by labels', async t => {
   delete opts.semver // auto-calculate
 
   const build = await cmd(opts)
-  t.equals(build.message,
+  t.equal(build.message,
     `**feature**:
 - four this is feature (#4)
 
@@ -240,7 +240,7 @@ test('group changelog order', async t => {
   delete opts.semver // auto-calculate
 
   const build = await cmd(opts)
-  t.equals(build.message,
+  t.equal(build.message,
     `**documentation**:
 - three this is a doc bugfix (#3)
 

@@ -34,7 +34,7 @@ test('parse all args', t => {
   ]
   const parsedArgs = parseArgs(argv)
 
-  t.strictDeepEqual(parsedArgs, {
+  t.strictSame(parsedArgs, {
     _: [],
     help: true,
     arg: 'arg',
@@ -64,7 +64,7 @@ test('check default values', t => {
   t.plan(1)
   const parsedArgs = parseArgs([])
 
-  t.strictDeepEqual(parsedArgs, {
+  t.strictSame(parsedArgs, {
     _: [],
     help: false,
     arg: undefined,
@@ -119,7 +119,7 @@ test('parse args with = assignment', t => {
   ]
   const parsedArgs = parseArgs(argv)
 
-  t.strictDeepEqual(parsedArgs, {
+  t.strictSame(parsedArgs, {
     _: [],
     help: false,
     arg: 'arg',
@@ -158,7 +158,8 @@ test('parse boolean args', t => {
     '--gh-release-prerelease'
   ]
   const parsedArgs = parseArgs(argv)
-  t.like(parsedArgs, {
+
+  t.match(parsedArgs, {
     help: true,
     major: true,
     dryRun: true,
@@ -190,7 +191,7 @@ test('parse args aliases', t => {
   ]
   const parsedArgs = parseArgs(argv)
 
-  t.strictDeepEqual(parsedArgs, {
+  t.strictSame(parsedArgs, {
     _: [],
     help: true,
     arg: undefined,
@@ -223,7 +224,7 @@ test('get GitHub Token from env', t => {
   const argv = ['-k', 'MY_ENV_KEY']
   const parsedArgs = parseArgs(argv)
 
-  t.strictEqual(parsedArgs.ghToken, process.env.MY_ENV_KEY)
+  t.equal(parsedArgs.ghToken, process.env.MY_ENV_KEY)
 })
 
 test('autoload config parameters', t => {
@@ -246,9 +247,9 @@ test('autoload config parameters', t => {
   const argv = ['--remote', 'arg-remote']
   const parsedArgs = parseArgs(argv)
 
-  t.strictEqual(parsedArgs.ghToken, store['gh-token'])
-  t.strictEqual(parsedArgs.ghReleaseEdit, true)
-  t.strictEqual(parsedArgs.noVerify, true)
-  t.strictEqual(parsedArgs.verbose, 'debug')
-  t.strictEqual(parsedArgs.remote, 'arg-remote')
+  t.equal(parsedArgs.ghToken, store['gh-token'])
+  t.equal(parsedArgs.ghReleaseEdit, true)
+  t.equal(parsedArgs.noVerify, true)
+  t.equal(parsedArgs.verbose, 'debug')
+  t.equal(parsedArgs.remote, 'arg-remote')
 })
