@@ -89,6 +89,36 @@ test('draft a range commit release message', async t => {
   await cmd(opts)
 })
 
+test('draft a range commit release message when toCommit not specified and no tags', async t => {
+  t.plan(1)
+
+  const opts = buildOptions()
+  opts.path = join(__dirname, 'fake-project/')
+  const commitHash = '123abc'.repeat(6)
+  opts.fromCommit = `${commitHash}4`
+  delete opts.toCommit
+  opts.tag = 'bad-pattern' // no tags
+  delete opts.semver // auto-calculate
+
+  const cmd = h.buildProxyCommand('../lib/commands/draft', {
+    git: {
+      tag: { history: 0 },
+      log: {
+        inputChecker (logArgs) {
+          t.strictDeepEqual(logArgs, {
+            from: opts.fromCommit,
+            to: 'HEAD'
+          })
+        }
+      }
+    },
+    github: { }, // default OK
+    npm: { } // default OK
+  })
+
+  await cmd(opts)
+})
+
 test('draft the first release', async t => {
   t.plan(3)
 
