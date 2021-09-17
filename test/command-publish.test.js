@@ -121,6 +121,29 @@ test('publish a module never released', async t => {
   })
 })
 
+test('publish a module never released and fail the pull', async t => {
+  t.plan(1)
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    git: { pull: { throwError: true } },
+    external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
+  })
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.verbose = 'trace'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  delete opts.tag
+
+  const out = await cmd(opts)
+  t.strictSame(out, {
+    lines: 1,
+    message: '📚 PR:\n- this is a standard comment (#123)\n',
+    name: 'fake-project',
+    oldVersion: '11.14.42',
+    release: 'minor',
+    version: '11.15.0'
+  })
+})
+
 test('try to publish a module version already released', t => {
   t.plan(1)
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
