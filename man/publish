@@ -11,7 +11,7 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
       Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
 
   -v, --verbose <level>
-      Print out more info. The value must be [debug, info, warn, error]. Default `warn`
+      Print out more info. The value must be [trace, debug, info, warn, error]. Default `warn`
 
   -r, --remote <string>
       The remote git where push the bumped version. Useful if you are releasing. Default `origin`
