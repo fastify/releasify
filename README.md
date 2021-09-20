@@ -61,7 +61,7 @@ You need a [GitHub OAUTH Token][gh-token] with scope `repo:public_repo` to run t
 releasify publish [--path|-p <path>]             ➡ The path to the project to release. Default `pwd`
                   [--tag|-t <pattern>]           ➡ The pattern of the tag to release. Useful for multi-branch project. It is necessary to find the last tag released of that pipeline. Default `v${major version of the project}.\d+.\d+`
                   [--semver|-s <release>]        ➡ Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
-                  [--verbose|-v <level>]         ➡ Print out more info. The value must be [debug, info, warn, error]. Default `warn`
+                  [--verbose|-v <level>]         ➡ Print out more info. The value must be [trace, debug, info, warn, error]. Default `warn`
                   [--remote|-r <string>]         ➡ The remote git where push the bumped version. Useful if you are releasing. Default `origin`
                   [--branch|-b <string>]         ➡ The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
                   [--no-verify|-n]               ➡ Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
@@ -141,7 +141,7 @@ releasify draft [--path|-p <path>]        ➡ The path to the project to draft. 
                 [--from-commit <hash>]    ➡ Specify a commit hash where to start to generate the release message. Default `HEAD`
                 [--to-commit <hash>]      ➡ Specify a commit hash where to stop to generate the release message. The --tag arg will be ignored
                 [--semver|-s <release>]   ➡ Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
-                [--verbose|-v <level>]    ➡ Print out more info. The value must be [debug, info, warn, error]
+                [--verbose|-v <level>]    ➡ Print out more info. The value must be [trace, debug, info, warn, error]
                 [--gh-group-by-label|-l <label>] ➡ Group the commits in the changelog message by PR's labels
                 [--help|-h]               ➡ Show this help message
 ```
@@ -170,7 +170,7 @@ The values are saved in an encrypted file, so it is human-unreadable.
 
 ```sh
 releasify config [--arg <string>]          ➡ The argument to save
-                 [--verbose|-v <level>]    ➡ Print out more info. The value must be [debug, info, warn, error]
+                 [--verbose|-v <level>]    ➡ Print out more info. The value must be [trace, debug, info, warn, error]
                  [--help|-h]               ➡ Show this help message
 ```
 

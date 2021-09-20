@@ -5,7 +5,7 @@ Usage: releasify config [--arg <string>] [--verbose|-v <level>] [--help|-h]
       The argument name or alias to save
 
   -v, --verbose <level>
-      Print out more info. The value must be [debug, info, warn, error]
+      Print out more info. The value must be [trace, debug, info, warn, error]
 
   -h, --help
       Show this help message
