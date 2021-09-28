@@ -1,7 +1,7 @@
 'use strict'
 
 const { test } = require('tap')
-const getRepositoryUrl = require('../lib/commands/getRepositoryUrl')
+const getRepositoryUrl = require('../lib/getRepositoryUrl')
 
 test('getRepositoryUrl', async (t) => {
   const url = getRepositoryUrl({
