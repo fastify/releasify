@@ -4,7 +4,6 @@ const { test } = require('tap')
 const getRepositoryUrl = require('../lib/getRepositoryUrl')
 
 test('getRepositoryUrl', (t) => {
-
   test('returns url', (t) => {
     const url = getRepositoryUrl({
       getRepoPackage: () => ({
@@ -34,8 +33,6 @@ test('getRepositoryUrl', (t) => {
       })
     })
     t.end()
-
   })
   t.end()
-
 })
