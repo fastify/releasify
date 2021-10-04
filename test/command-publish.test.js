@@ -278,6 +278,37 @@ test('publish a module minor with no-verify', async t => {
   })
 })
 
+test('publish npm error', async t => {
+  t.plan(2)
+
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  opts.npmAccess = 'public'
+  opts.noVerify = true
+  delete opts.tag
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    npm: {
+      ping: { code: 0, data: 'Ping success: {}' },
+      config: { code: 0, data: 'my-registry' },
+      whoami: { code: 0, data: 'John Doo' },
+      publish: { code: 1, signal: 'foo', data: 'publishing...', errorData: 'npm OTP required' }
+    },
+    external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 2 } } }) }
+  })
+
+  try {
+    await cmd(opts)
+    t.fail('should not succeed')
+  } catch (error) {
+    t.ok(error)
+    t.equal(error.message, `npm publish,--access,public returned code 1 and signal foo
+STDOUT: publishing...
+STDERR: npm OTP required`)
+  }
+})
+
 test('publish a module minor editing the release message', async t => {
   t.plan(4)
 

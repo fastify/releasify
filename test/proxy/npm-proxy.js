@@ -19,6 +19,7 @@ module.exports = function factory (opts) {
     spawn: function (node, args, opts) {
       const command = args[0]
       let dataCallback
+      let errorCallback
       return {
         stdout: {
           setEncoding: function (encoding) {},
@@ -28,10 +29,18 @@ module.exports = function factory (opts) {
             }
           }
         },
+        stderr: {
+          setEncoding: function (encoding) {},
+          on: function (event, cb) {
+            if (event === 'data') {
+              errorCallback = cb
+            }
+          }
+        },
         on: function (event, cb) {
           setImmediate(() => {
             // Default success
-            const { code, data, inputChecker } = commandsCode[command] || { code: 0 }
+            const { code, signal, data, errorData, inputChecker } = commandsCode[command] || { code: 0 }
             if (inputChecker) {
               inputChecker(args.slice(1))
             }
@@ -39,7 +48,10 @@ module.exports = function factory (opts) {
             if (data && dataCallback) {
               dataCallback(data)
             }
-            cb(code)
+            if (errorData && errorCallback) {
+              errorCallback(errorData)
+            }
+            cb(code, signal)
           })
         }
       }
