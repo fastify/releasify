@@ -73,7 +73,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--gh-group-by-label|-l <label>] ➡ Group the commits in the changelog message by PR's labels
                   [--npm-access|-a <string>]       ➡ It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
                   [--npm-dist-tag <string>]        ➡ It will add a npm tag to the module, like `beta` or `next`
-                  [--npm-otp <code>]               ➡ It will provide the otp code to the npm publish
+                  [--npm-otp <code>]               ➡ It will provide the otp code to the npm publish. Use this only for CI. For publishing from your machine, omit this argument and you will be asked to enter OTP code just before the npm publish command gets executed.
                   [--major|-m]                     ➡ It will unlock the release of a major release
                   [--help|-h]                      ➡ Show this help message
 ```
