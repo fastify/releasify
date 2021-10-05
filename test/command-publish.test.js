@@ -218,7 +218,6 @@ test('publish a module major', async t => {
   opts.major = true
   opts.npmAccess = 'public'
   opts.npmDistTag = 'next'
-  opts.npmOtp = '123789'
   delete opts.tag
 
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
@@ -229,7 +228,7 @@ test('publish a module major', async t => {
       publish: {
         code: 0,
         inputChecker (publishArgs) {
-          t.strictSame(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess, '--otp', opts.npmOtp])
+          t.strictSame(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess])
         }
       }
     },
@@ -286,6 +285,7 @@ test('publish npm error', async t => {
   opts.ghToken = '0000000000000000000000000000000000000000'
   opts.npmAccess = 'public'
   opts.noVerify = true
+  opts.silent = true
   delete opts.tag
 
   const cmd = h.buildProxyCommand('../lib/commands/publish', {

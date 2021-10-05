@@ -19,6 +19,9 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
   -n, --no-verify
       Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
 
+  --silent
+      never ask for user input. Note that if 2FA is required for publishing this flag must be used with `npm-otp` flag
+
   -b, --branch <string>
       The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
 
@@ -45,7 +48,6 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
 
   --npm-otp <code>
       It will provide the otp code to the npm publish
-
   -m, --major
       It will unlock the release of a major release
 

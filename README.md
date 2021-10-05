@@ -64,6 +64,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--verbose|-v <level>]         ➡ Print out more info. The value must be [trace, debug, info, warn, error]. Default `warn`
                   [--remote|-r <string>]         ➡ The remote git where push the bumped version. Useful if you are releasing. Default `origin`
                   [--branch|-b <string>]         ➡ The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
+                  [--silent]                     ➡ never ask for user input. Note that if 2FA is required for publishing this flag must be used with `npm-otp` flag
                   [--no-verify|-n]               ➡ Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
                   [--gh-token|-k <env | token>]  ➡ The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`
                   [--gh-release-edit|-e]         ➡ Open an editor to modify the release message before creating it on GitHub
