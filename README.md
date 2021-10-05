@@ -64,6 +64,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--verbose|-v <level>]         ➡ Print out more info. The value must be [trace, debug, info, warn, error]. Default `warn`
                   [--remote|-r <string>]         ➡ The remote git where push the bumped version. Useful if you are releasing. Default `origin`
                   [--branch|-b <string>]         ➡ The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
+                  [--silent]                     ➡ never ask for user input. Note that this is only usable for packages which can be published without 2FA. If 2FA is required this flag cannot be used.
                   [--no-verify|-n]               ➡ Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
                   [--gh-token|-k <env | token>]  ➡ The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`
                   [--gh-release-edit|-e]         ➡ Open an editor to modify the release message before creating it on GitHub
@@ -72,7 +73,6 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--gh-group-by-label|-l <label>] ➡ Group the commits in the changelog message by PR's labels
                   [--npm-access|-a <string>]       ➡ It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
                   [--npm-dist-tag <string>]        ➡ It will add a npm tag to the module, like `beta` or `next`
-                  [--npm-otp <code>]               ➡ It will provide the otp code to the npm publish
                   [--major|-m]                     ➡ It will unlock the release of a major release
                   [--help|-h]                      ➡ Show this help message
 ```
