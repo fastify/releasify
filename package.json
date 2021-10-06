@@ -9,7 +9,8 @@
   },
   "scripts": {
     "lint:fix": "standard --fix",
-    "test": "standard && tap --cov -J test/*.test.js"
+    "test": "standard && tap --cov -J test/*.test.js",
+    "tap:only": "tap --watch --only"
   },
   "engines": {
     "node": ">=12"
