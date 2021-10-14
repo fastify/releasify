@@ -23,7 +23,7 @@
     "enquirer": "^2.3.5",
     "open-editor": "^3.0.0",
     "parse-github-url": "^1.0.2",
-    "pino": "^6.5.0",
+    "pino": "^7.0.1",
     "pino-pretty": "^7.0.0",
     "semver": "^7.3.2",
     "simple-git": "^2.37.0",
