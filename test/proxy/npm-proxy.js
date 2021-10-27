@@ -40,7 +40,8 @@ module.exports = function factory (opts) {
         on: function (event, cb) {
           setImmediate(() => {
             // Default success
-            const { code, signal, data, errorData, inputChecker } = commandsCode[command] || { code: 0 }
+            const compareTo = Array.isArray(commandsCode[command]) ? commandsCode[command].shift() : commandsCode[command]
+            const { code, signal, data, errorData, inputChecker } = compareTo || { code: 0 }
             if (inputChecker) {
               inputChecker(args.slice(1))
             }
