@@ -218,7 +218,6 @@ test('publish a module major', async t => {
   opts.major = true
   opts.npmAccess = 'public'
   opts.npmDistTag = 'next'
-  opts.npmOtp = '123789'
   delete opts.tag
 
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
@@ -229,7 +228,7 @@ test('publish a module major', async t => {
       publish: {
         code: 0,
         inputChecker (publishArgs) {
-          t.strictSame(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess, '--otp', opts.npmOtp])
+          t.strictSame(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess])
         }
       }
     },
@@ -286,6 +285,7 @@ test('publish npm error', async t => {
   opts.ghToken = '0000000000000000000000000000000000000000'
   opts.npmAccess = 'public'
   opts.noVerify = true
+  opts.silent = true
   delete opts.tag
 
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
@@ -307,6 +307,57 @@ test('publish npm error', async t => {
 STDOUT: publishing...
 STDERR: npm OTP required`)
   }
+})
+
+test('publish npm within npm-otp input', async t => {
+  t.plan(3)
+
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  opts.npmAccess = 'public'
+  opts.npmOtp = 'not-valid'
+  opts.noVerify = true
+  opts.silent = false
+  delete opts.tag
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    npm: {
+      ping: { code: 0, data: 'Ping success: {}' },
+      config: { code: 0, data: 'my-registry' },
+      whoami: { code: 0, data: 'John Doo' },
+      publish: [
+        // first run fail
+        { code: 1, signal: 'foo', data: 'publishing...', errorData: 'npm ERR! code EOTP' },
+        // second run succeed
+        {
+          code: 0,
+          inputChecker (publishArgs) {
+            t.strictSame(publishArgs, ['--access', opts.npmAccess, '--otp', '123456'])
+          }
+        }
+      ]
+    },
+    external: {
+      './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 2 } } }),
+      inquirer: {
+        async prompt (params) {
+          t.match(params.message, /fake-project@11\.15\.0/)
+          return { inputtedOtp: '123456' }
+        }
+      }
+    }
+  })
+
+  const out = await cmd(opts)
+  t.strictSame(out, {
+    lines: 2,
+    message: '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n',
+    name: 'fake-project',
+    oldVersion: '11.14.42',
+    release: 'minor',
+    version: '11.15.0'
+  })
 })
 
 test('publish a module minor editing the release message', async t => {
