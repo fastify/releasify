@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^18.5.0",
-    "ajv": "^6.12.2",
+    "ajv": "^8.8.1",
     "commist": "^2.0.0",
     "conf": "^10.0.0",
     "debug": "^4.3.2",
