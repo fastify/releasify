@@ -4,8 +4,6 @@
 [![NPM version](https://img.shields.io/npm/v/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
 [![NPM downloads](https://img.shields.io/npm/dm/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![codecov](https://codecov.io/gh/fastify/releasify/branch/master/graph/badge.svg)](https://codecov.io/gh/fastify/releasify)
-[![Known Vulnerabilities](https://snyk.io/test/github/fastify/releasify/badge.svg)](https://snyk.io/test/github/fastify/releasify)
 
 A CLI tool to simplify your release process!
 
