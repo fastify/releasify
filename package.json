@@ -18,7 +18,7 @@
     "conf": "^10.0.0",
     "debug": "^4.3.2",
     "enquirer": "^2.3.5",
-    "inquirer": "^8.1.5",
+    "inquirer": "^9.0.1",
     "open-editor": "^3.0.0",
     "parse-github-url": "^1.0.2",
     "pino": "^7.0.1",
