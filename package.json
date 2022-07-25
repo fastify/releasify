@@ -21,7 +21,7 @@
     "inquirer": "^8.1.5",
     "open-editor": "^3.0.0",
     "parse-github-url": "^1.0.2",
-    "pino": "^7.0.1",
+    "pino": "^8.3.0",
     "pino-pretty": "^8.0.0",
     "semver": "^7.3.2",
     "simple-git": "^3.0.3",
