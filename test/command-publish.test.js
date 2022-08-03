@@ -340,10 +340,10 @@ test('publish npm within npm-otp input', async t => {
     },
     external: {
       './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 2 } } }),
-      inquirer: {
-        async prompt (params) {
+      enquirer: {
+        Input: function (params) {
           t.match(params.message, /fake-project@11\.15\.0/)
-          return { inputtedOtp: '123456' }
+          return { async run () { return '123456' } }
         }
       }
     }
