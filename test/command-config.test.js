@@ -2,6 +2,7 @@
 
 const t = require('tap')
 const h = require('./helper')
+const fs = require('fs')
 
 const cmd = h.buildProxyCommand('../lib/commands/config')
 const LocalConf = require('../lib/local-conf')
@@ -51,4 +52,6 @@ test('save config data', async t => {
     t.plan(1)
     t.equal(localConf.get('semver'), inputValue)
   })
+
+  fs.unlinkSync(build.path)
 })
