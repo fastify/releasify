@@ -8,8 +8,9 @@
     "releasify": "lib/cli.js"
   },
   "scripts": {
+    "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "standard && tap --cov -J test/*.test.js"
+    "test": "tap --cov -J test/*.test.js"
   },
   "dependencies": {
     "@octokit/rest": "^19.0.3",
