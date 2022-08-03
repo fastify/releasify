@@ -53,5 +53,7 @@ test('save config data', async t => {
     t.equal(localConf.get('semver'), inputValue)
   })
 
-  fs.unlinkSync(build.path)
+  t.teardown(() => {
+    fs.unlinkSync(build.path)
+  })
 })
