@@ -1,2 +1,5 @@
 branches: 95
 functions: 98
+
+files:
+  - test/*.test.js

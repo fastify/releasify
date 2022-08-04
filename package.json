@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "tap --cov -J test/*.test.js"
+    "test": "tap"
   },
   "dependencies": {
     "@octokit/rest": "^19.0.3",
