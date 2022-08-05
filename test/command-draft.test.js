@@ -105,7 +105,7 @@ test('draft a range commit release message when toCommit not specified and no ta
       tag: { history: 0 },
       log: {
         inputChecker (logArgs) {
-          t.strictDeepEqual(logArgs, {
+          t.strictSame(logArgs, {
             from: opts.fromCommit,
             to: 'HEAD'
           })
