@@ -26,8 +26,8 @@ function buildOptions () {
 
 test('mandatory options', t => {
   t.plan(2)
-  t.rejects(() => cmd({}), new Error("should have required property 'path',  should have required property 'fromCommit',  should have required property 'verbose'"))
-  t.rejects(() => cmd(buildOptions()), new Error('.tag should be string, .semver should be string, .semver should be equal to one of the allowed values'))
+  t.rejects(() => cmd({}), new Error("must have required property 'path',  must have required property 'fromCommit',  must have required property 'verbose'"))
+  t.rejects(() => cmd(buildOptions()), new Error('.tag must be string, .semver must be string, .semver must be equal to one of the allowed values'))
 })
 
 test('draft a version forced release', async t => {
