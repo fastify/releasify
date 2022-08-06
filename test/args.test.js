@@ -238,8 +238,8 @@ test('autoload config parameters', t => {
 
   const store = {
     'gh-token': '0000000000000000000000000000000000000000',
-    'gh-release-edit': 'true',
-    'no-verify': 'true',
+    'gh-release-edit': true,
+    'no-verify': true,
     verbose: 'debug',
     remote: 'remo'
   }
