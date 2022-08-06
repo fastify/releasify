@@ -45,6 +45,6 @@ t.test('config error', t => {
   const cli = h.execute('config', ['--arg', 'wrong'])
   cli.stdout.setEncoding('utf8')
   cli.stdout.on('data', output => {
-    t.match(output, /arg should be equal to one of the allowed values/)
+    t.match(output, /arg must be equal to one of the allowed values/)
   })
 })
