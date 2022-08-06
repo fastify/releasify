@@ -33,8 +33,8 @@ function buildOptions () {
 
 test('mandatory options', t => {
   t.plan(2)
-  t.rejects(() => cmd({}), new Error(" should have required property 'major',  should have required property 'path',  should have required property 'remote',  should have required property 'branch',  should have required property 'ghToken',  should have required property 'verbose',  should have required property 'semver'"))
-  t.rejects(() => cmd(buildOptions()), new Error('.tag should be string, .ghToken should NOT be shorter than 40 characters, .semver should be string, .semver should be equal to one of the allowed values'))
+  t.rejects(() => cmd({}), new Error(" must have required property 'path',  must have required property 'verbose',  must have required property 'major',  must have required property 'remote',  must have required property 'branch',  must have required property 'semver',  must have required property 'ghToken'"))
+  t.rejects(() => cmd(buildOptions()), new Error('.tag must be string, .ghToken must NOT have fewer than 40 characters, .semver must be string, .semver must be equal to one of the allowed values'))
 })
 
 test('try to publish a repo not sync', t => {
@@ -70,7 +70,7 @@ test('try to publish with a wrong token', t => {
   opts.semver = 'patch'
   opts.ghToken = 'NOT-EXISTING-ENV-KEY'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('.ghToken should NOT be shorter than 40 characters'))
+  t.rejects(() => cmd(opts), new Error('.ghToken must NOT have fewer than 40 characters'))
 })
 
 test('npm ping failed', t => {
@@ -194,7 +194,7 @@ test('fails to build the release', t => {
     external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
   })
 
-  t.rejects(() => cmd(opts), new Error("Something went wrong creating the release on GitHub.\nThe 'npm publish' and 'git push' has been done!\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)\n"))
+  t.rejects(() => cmd(opts), new Error("Something went wrong creating the release on GitHub.\nThe 'npm publish' and 'git push' has been done!\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)"))
 })
 
 test('try to publish a module major', t => {
