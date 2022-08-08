@@ -1,5 +1,6 @@
 branches: 95
 functions: 98
+timeout: 120
 
 files:
   - test/*.test.js
