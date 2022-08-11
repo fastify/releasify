@@ -16,3 +16,4 @@ jobs:
     with:
       license-check: true
       lint: true
+      auto-merge-exclude: 'simple-git'
