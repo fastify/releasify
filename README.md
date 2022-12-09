@@ -65,7 +65,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--silent]                     ➡ never ask for user input. Note that if 2FA is required for publishing this flag must be used with `npm-otp` flag
                   [--no-verify|-n]               ➡ Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
                   [--gh-token|-k <env | token>]  ➡ The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`
-                  [--gh-release-edit|-e]         ➡ Open an editor to modify the release message before creating it on GitHub
+                  [--gh-release-edit|-e]         ➡ Open an editor to modify the release message before creating it on GitHub. Default will use github `generate_release_notes` option if argument is excluded.
                   [--gh-release-draft]           ➡ Create the GitHub Release as draft. Default `false`
                   [--gh-release-prerelease]      ➡ Create the GitHub Release as pre-release. Default `false`
                   [--gh-group-by-label|-l <label>] ➡ Group the commits in the changelog message by PR's labels

@@ -32,7 +32,7 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
       Group the commits in the release message by PR's labels
 
   -e, --gh-release-edit
-      Open an editor to modify the release message before creating it on GitHub
+      Open an editor to modify the release message before creating it on GitHub. Default will use github `generate_release_notes` option if argument is excluded.
 
   --gh-release-draft
       Create the GitHub Release as draft. Default `false`
