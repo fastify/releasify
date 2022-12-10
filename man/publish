@@ -32,13 +32,16 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
       Group the commits in the release message by PR's labels
 
   -e, --gh-release-edit
-      Open an editor to modify the release message before creating it on GitHub. Default will use github `generate_release_notes` option if argument is excluded.
+      Open an editor to modify the release message before creating it on GitHub
 
   --gh-release-draft
       Create the GitHub Release as draft. Default `false`
 
   --gh-release-prerelease
       Create the GitHub Release as pre-release. Default `false`
+
+  --gh-release-body
+      Automatically generate body via Github. When `true` will take priority over `--gh-release-edit`. Default `false`
 
   -a, --npm-access <string>
       It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
