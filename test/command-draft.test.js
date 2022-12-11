@@ -19,7 +19,8 @@ function buildOptions () {
     verbose: 'error',
     fromCommit: 'HEAD',
     semver: null,
-    ghGroupByLabel: []
+    ghGroupByLabel: [],
+    ghReleaseBody: false
   }
   return Object.assign({}, options)
 }
@@ -57,6 +58,22 @@ test('draft a suggested release', async t => {
   // TODO: now the suggestedRelease is not implemented
   t.equal(build.version, '11.14.42')
   t.equal(build.oldVersion, '11.14.42')
+})
+
+test('draft a null commit message', async t => {
+  t.plan(4)
+
+  const opts = buildOptions()
+  opts.ghReleaseBody = true
+  opts.path = join(__dirname, 'fake-project/')
+  opts.semver = 'major'
+  delete opts.tag // autosense
+
+  const build = await cmd(opts)
+  t.equal(build.name, 'fake-project')
+  t.equal(build.version, '12.0.0')
+  t.equal(build.oldVersion, '11.14.42')
+  t.equal(build.message, null)
 })
 
 test('draft a range commit release message', async t => {
