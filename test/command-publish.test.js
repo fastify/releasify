@@ -276,7 +276,7 @@ test('publish a module with github generate release notes', async t => {
 
   const out = await cmd(opts)
   t.strictSame(out, {
-    lines: 0,
+    lines: 1,
     message: null,
     name: 'fake-project',
     oldVersion: '11.14.42',
@@ -316,7 +316,7 @@ test('publish a module with gh-release-body taking priority', async t => {
 
   const out = await cmd(opts)
   t.strictSame(out, {
-    lines: 0,
+    lines: 1,
     message: null,
     name: 'fake-project',
     oldVersion: '11.14.42',
