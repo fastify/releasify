@@ -246,6 +246,85 @@ test('publish a module major', async t => {
   })
 })
 
+test('publish a module with github generate release notes', async t => {
+  t.plan(4)
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    npm: {
+      ping: { code: 0, data: 'Ping success: {}' },
+      config: { code: 0, data: 'my-registry' },
+      whoami: { code: 0, data: 'John Doo' },
+      publish: { code: 0 }
+    },
+    github: {
+      release: {
+        inputChecker (releaseParams) {
+          t.equal(releaseParams.tag_name, 'v11.15.0')
+          t.equal(releaseParams.name, releaseParams.tag_name)
+          t.equal(releaseParams.generate_release_notes, true)
+        }
+      }
+    },
+    external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
+  })
+
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  opts.ghReleaseBody = true
+  delete opts.tag
+
+  const out = await cmd(opts)
+  t.strictSame(out, {
+    lines: 1,
+    message: null,
+    name: 'fake-project',
+    oldVersion: '11.14.42',
+    release: 'minor',
+    version: '11.15.0'
+  })
+})
+
+test('publish a module with gh-release-body taking priority', async t => {
+  t.plan(4)
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    npm: {
+      ping: { code: 0, data: 'Ping success: {}' },
+      config: { code: 0, data: 'my-registry' },
+      whoami: { code: 0, data: 'John Doo' },
+      publish: { code: 0 }
+    },
+    github: {
+      release: {
+        inputChecker (releaseParams) {
+          t.equal(releaseParams.tag_name, 'v11.15.0')
+          t.equal(releaseParams.name, releaseParams.tag_name)
+          t.equal(releaseParams.generate_release_notes, true)
+        }
+      }
+    },
+    external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
+  })
+
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  opts.ghReleaseEdit = true
+  opts.ghReleaseBody = true
+  delete opts.tag
+
+  const out = await cmd(opts)
+  t.strictSame(out, {
+    lines: 1,
+    message: null,
+    name: 'fake-project',
+    oldVersion: '11.14.42',
+    release: 'minor',
+    version: '11.15.0'
+  })
+})
+
 test('publish a module minor with no-verify', async t => {
   t.plan(1)
 

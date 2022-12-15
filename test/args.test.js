@@ -30,6 +30,7 @@ test('parse all args', t => {
     '--gh-release-edit', 'true',
     '--gh-release-draft', 'true',
     '--gh-release-prerelease', 'true',
+    '--gh-release-body', 'true',
     '--gh-group-by-label', 'bugfix',
     '--gh-group-by-label', 'docs'
   ]
@@ -58,6 +59,7 @@ test('parse all args', t => {
     ghReleaseEdit: true,
     ghReleaseDraft: true,
     ghReleasePrerelease: true,
+    ghReleaseBody: true,
     ghGroupByLabel: ['bugfix', 'docs']
   })
 })
@@ -89,6 +91,7 @@ test('check default values', t => {
     ghReleaseEdit: false,
     ghReleaseDraft: false,
     ghReleasePrerelease: false,
+    ghReleaseBody: false,
     ghGroupByLabel: []
   })
 })
@@ -118,6 +121,7 @@ test('parse args with = assignment', t => {
     '--gh-release-edit=true',
     '--gh-release-draft=true',
     '--gh-release-prerelease=true',
+    '--gh-release-body=true',
     '--gh-group-by-label=bugfix',
     '--gh-group-by-label=docs'
   ]
@@ -146,6 +150,7 @@ test('parse args with = assignment', t => {
     ghReleaseEdit: true,
     ghReleaseDraft: true,
     ghReleasePrerelease: true,
+    ghReleaseBody: true,
     ghGroupByLabel: ['bugfix', 'docs']
   })
 })
@@ -160,7 +165,8 @@ test('parse boolean args', t => {
     '--no-verify',
     '--gh-release-edit',
     '--gh-release-draft',
-    '--gh-release-prerelease'
+    '--gh-release-prerelease',
+    '--gh-release-body'
   ]
   const parsedArgs = parseArgs(argv)
 
@@ -171,7 +177,8 @@ test('parse boolean args', t => {
     noVerify: true,
     ghReleaseEdit: true,
     ghReleaseDraft: true,
-    ghReleasePrerelease: true
+    ghReleasePrerelease: true,
+    ghReleaseBody: true
   })
 })
 
@@ -191,6 +198,7 @@ test('parse args aliases', t => {
     '-a', 'public',
     '-k', 'MY_KEY',
     '-e',
+    '-x',
     '-l', 'bugfix',
     '-l', 'docs'
   ]
@@ -219,6 +227,7 @@ test('parse args aliases', t => {
     ghReleaseEdit: true,
     ghReleaseDraft: false,
     ghReleasePrerelease: false,
+    ghReleaseBody: true,
     ghGroupByLabel: ['bugfix', 'docs']
   })
 })

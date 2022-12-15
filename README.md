@@ -68,6 +68,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--gh-release-edit|-e]         ➡ Open an editor to modify the release message before creating it on GitHub
                   [--gh-release-draft]           ➡ Create the GitHub Release as draft. Default `false`
                   [--gh-release-prerelease]      ➡ Create the GitHub Release as pre-release. Default `false`
+                  [--gh-release-body|-x]            ➡ Automatically generate body via Github. When `true` will take priority over `--gh-release-edit`. Default `false`
                   [--gh-group-by-label|-l <label>] ➡ Group the commits in the changelog message by PR's labels
                   [--npm-access|-a <string>]       ➡ It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
                   [--npm-dist-tag <string>]        ➡ It will add a npm tag to the module, like `beta` or `next`
