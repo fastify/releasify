@@ -60,7 +60,7 @@ test('draft a suggested release', async t => {
   t.equal(build.oldVersion, '11.14.42')
 })
 
-test('draft a null commit message', async t => {
+test('draft a undefined commit message', async t => {
   t.plan(4)
 
   const opts = buildOptions()
@@ -73,7 +73,7 @@ test('draft a null commit message', async t => {
   t.equal(build.name, 'fake-project')
   t.equal(build.version, '12.0.0')
   t.equal(build.oldVersion, '11.14.42')
-  t.equal(build.message, null)
+  t.equal(build.message, undefined)
 })
 
 test('draft a range commit release message', async t => {
