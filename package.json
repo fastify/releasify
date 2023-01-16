@@ -16,7 +16,7 @@
     "@octokit/rest": "^19.0.3",
     "ajv": "^8.0.0",
     "commist": "^3.0.0",
-    "conf": "^10.0.0",
+    "conf": "^11.0.1",
     "debug": "^4.3.2",
     "enquirer": "^2.3.5",
     "open-editor": "^3.0.0",
