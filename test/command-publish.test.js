@@ -1,8 +1,8 @@
 'use strict'
 
-const { EventEmitter } = require('events')
+const { EventEmitter } = require('node:events')
 const t = require('tap')
-const { join } = require('path')
+const { join } = require('node:path')
 const proxyquire = require('proxyquire')
 const h = require('./helper')
 
@@ -467,14 +467,14 @@ test('publish a module minor editing the release message', async t => {
             return { arguments: [] }
           }
         },
-        child_process: {
+        'node:child_process': {
           spawn: () => {
             const e = new EventEmitter()
             setImmediate(() => { e.emit('exit', 0) })
             return e
           }
         },
-        fs: {
+        'node:fs': {
           readFile (tmpFile, opts, cb) {
             t.equal(tmpFile, fakeFile)
             cb(null, 'my message')
@@ -524,14 +524,14 @@ test('editor error', t => {
             return { arguments: [] }
           }
         },
-        child_process: {
+        'node:child_process': {
           spawn: () => {
             const e = new EventEmitter()
             setImmediate(() => { e.emit('exit', 1) })
             return e
           }
         },
-        fs: {
+        'node:fs': {
           readFile () { t.fail('The file has not been edited') }
         }
       })

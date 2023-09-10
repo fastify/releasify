@@ -1,8 +1,8 @@
 'use strict'
 
-const { spawn } = require('child_process')
-const fs = require('fs')
-const path = require('path')
+const { spawn } = require('node:child_process')
+const fs = require('node:fs')
+const path = require('node:path')
 const proxyquire = require('proxyquire')
 
 const factorySimpleGit = require('./proxy/simple-git-proxy')
@@ -30,7 +30,7 @@ function buildProxyCommand (commandPath, opts = {}) {
       '@octokit/rest': factoryOctokit(opts.github)
     }),
     '../npm': proxyquire('../lib/npm', {
-      child_process: factoryNpm(opts.npm)
+      'node:child_process': factoryNpm(opts.npm)
     }),
     ...opts.external
   })
