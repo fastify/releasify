@@ -1,8 +1,8 @@
 'use strict'
 
-const { spawn } = require('child_process')
-const fs = require('fs')
-const path = require('path')
+const { spawn } = require('node:child_process')
+const fs = require('node:fs')
+const path = require('node:path')
 const proxyquire = require('proxyquire')
 
 const factorySimpleGit = require('./proxy/simple-git-proxy')

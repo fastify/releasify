@@ -2,7 +2,7 @@
 
 const t = require('tap')
 const h = require('./helper')
-const fs = require('fs')
+const fs = require('node:fs')
 
 const cmd = h.buildProxyCommand('../lib/commands/config')
 const LocalConf = require('../lib/local-conf')

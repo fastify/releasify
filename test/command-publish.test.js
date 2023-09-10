@@ -1,8 +1,8 @@
 'use strict'
 
-const { EventEmitter } = require('events')
+const { EventEmitter } = require('node:events')
 const t = require('tap')
-const { join } = require('path')
+const { join } = require('node:path')
 const proxyquire = require('proxyquire')
 const h = require('./helper')
 
