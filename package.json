@@ -4,6 +4,7 @@
   "private": false,
   "description": "Tool to release in a simpler way your module",
   "main": "lib/cli.js",
+  "type": "commonjs",
   "bin": {
     "releasify": "lib/cli.js"
   },
