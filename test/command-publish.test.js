@@ -33,8 +33,8 @@ function buildOptions () {
 
 test('mandatory options', t => {
   t.plan(2)
-  t.rejects(() => cmd({}), new Error(" must have required property 'path',  must have required property 'verbose',  must have required property 'major',  must have required property 'remote',  must have required property 'branch',  must have required property 'semver',  must have required property 'ghToken'"))
-  t.rejects(() => cmd(buildOptions()), new Error('.tag must be string, .ghToken must NOT have fewer than 40 characters, .semver must be string, .semver must be equal to one of the allowed values'))
+  t.rejects(async () => cmd({}), new Error(" must have required property 'path',  must have required property 'verbose',  must have required property 'major',  must have required property 'remote',  must have required property 'branch',  must have required property 'semver',  must have required property 'ghToken'"))
+  t.rejects(async () => cmd(buildOptions()), new Error('.tag must be string, .ghToken must NOT have fewer than 40 characters, .semver must be string, .semver must be equal to one of the allowed values'))
 })
 
 test('try to publish a repo not sync', t => {
@@ -46,7 +46,7 @@ test('try to publish a repo not sync', t => {
   opts.semver = 'patch'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('The git repo must be clean (committed and pushed) before releasing!'))
+  t.rejects(async () => cmd(opts), new Error('The git repo must be clean (committed and pushed) before releasing!'))
 })
 
 test('try to publish 0 new commits', t => {
@@ -58,7 +58,7 @@ test('try to publish 0 new commits', t => {
   opts.semver = 'patch'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('There are ZERO commit to release!'))
+  t.rejects(async () => cmd(opts), new Error('There are ZERO commit to release!'))
 })
 
 test('try to publish with a wrong token', t => {
@@ -70,7 +70,7 @@ test('try to publish with a wrong token', t => {
   opts.semver = 'patch'
   opts.ghToken = 'NOT-EXISTING-ENV-KEY'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('.ghToken must NOT have fewer than 40 characters'))
+  t.rejects(async () => cmd(opts), new Error('.ghToken must NOT have fewer than 40 characters'))
 })
 
 test('npm ping failed', t => {
@@ -83,7 +83,7 @@ test('npm ping failed', t => {
   opts.semver = 'minor'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('npm ping returned code 1 and signal undefined'))
+  t.rejects(async () => cmd(opts), new Error('npm ping returned code 1 and signal undefined'))
 })
 
 test('publish a module never released', async t => {
@@ -159,7 +159,7 @@ test('try to publish a module version already released', t => {
   opts.semver = 'minor'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('The module fake-project@11.15.0 is already published in the registry my-registry'))
+  t.rejects(async () => cmd(opts), new Error('The module fake-project@11.15.0 is already published in the registry my-registry'))
 })
 
 test('fails to push the release', t => {
@@ -177,7 +177,7 @@ test('fails to push the release', t => {
     external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
   })
 
-  t.rejects(() => cmd(opts), new Error("Something went wrong pushing the package.json to git.\nThe 'npm publish' has been done! Check your 'git status' and if necessary run 'npm unpublish fake-project@11.14.43'.\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)\n"))
+  t.rejects(async () => cmd(opts), new Error("Something went wrong pushing the package.json to git.\nThe 'npm publish' has been done! Check your 'git status' and if necessary run 'npm unpublish fake-project@11.14.43'.\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)\n"))
 })
 
 test('fails to build the release', t => {
@@ -194,7 +194,7 @@ test('fails to build the release', t => {
     external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
   })
 
-  t.rejects(() => cmd(opts), new Error("Something went wrong creating the release on GitHub.\nThe 'npm publish' and 'git push' has been done!\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)"))
+  t.rejects(async () => cmd(opts), new Error("Something went wrong creating the release on GitHub.\nThe 'npm publish' and 'git push' has been done!\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)"))
 })
 
 test('try to publish a module major', t => {
@@ -206,7 +206,7 @@ test('try to publish a module major', t => {
   opts.semver = 'major'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('You can not release a major version without --major flag'))
+  t.rejects(async () => cmd(opts), new Error('You can not release a major version without --major flag'))
 })
 
 test('publish a module major', async t => {
@@ -538,7 +538,7 @@ test('editor error', t => {
     }
   })
 
-  t.rejects(() => cmd(opts), new Error('Something went wrong creating the release on GitHub.'))
+  t.rejects(async () => cmd(opts), new Error('Something went wrong creating the release on GitHub.'))
 })
 
 test('publish a module from a branch that is not master', async t => {
