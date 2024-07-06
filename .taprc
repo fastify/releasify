@@ -1,3 +1,5 @@
+jobs: 1
+timeout: 360
 disable-coverage: true
 files:
   - test/*.test.js
