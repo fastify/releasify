@@ -22,4 +22,3 @@ jobs:
       license-check: true
       lint: true
       auto-merge-exclude: 'simple-git'
-      node-versions: '["18", "20", "22"]'
