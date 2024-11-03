@@ -17,7 +17,7 @@ This is what you can achieve with `releasify`:
   1. You want to release your `awesome-module`
   2. Go to the local directory and checkout the branch you want to release
   3. Execute `releasify publish` (see the [examples](#Publish)).
-  
+
 At this point, the tool will perform the following actions for you:
 
   * It checks that your local repo is aligned with your git remote
@@ -48,7 +48,7 @@ releasify -v
 
 ## Commands
 
-Check the [man](man/) directory to see all the arguments detail or type `npx releasify help` 
+Check the [man](man/) directory to see all the arguments detail or type `npx releasify help`
 to get a preview.
 
 ### ☄ Publish
@@ -128,7 +128,7 @@ releasify publish -v debug -m -s major -l feature -l bugfix -l documentation
 Print out the new version that should be released with its changelog listing the commit messages.
 
 The commits shown are
-+ from: the `HEAD` of your local project 
++ from: the `HEAD` of your local project
 + to: the _first commit_ or the _last version tag_ you created
 
 Moreover, if the commit message is written with the pattern: `text describing (#123)`, where
