@@ -6,7 +6,7 @@ Usage: releasify <command>
 where <command> is one of:
   draft, publish, config
 
-releasify <command> -h 
+releasify <command> -h
   quick help on <command>
 
 Usage via npx:

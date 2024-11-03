@@ -1,4 +1,4 @@
-Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--no-verify|-n] [--gh-token|-k <env name var | token>] [--gh-release-edit|-e] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--major|-m] [--help|-h] 
+Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--no-verify|-n] [--gh-token|-k <env name var | token>] [--gh-release-edit|-e] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--major|-m] [--help|-h]
   publish to npm a new version of a module and create the GitHub Release with the changelogs
 
   -p, --path <path>
