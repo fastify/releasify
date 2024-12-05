@@ -1,6 +1,6 @@
 # releasify
 
-![CI](https://github.com/fastify/releasify/workflows/CI/badge.svg)
+[![CI](https://github.com/fastify/releasify/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/fastify/releasify/actions/workflows/ci.yml)
 [![NPM version](https://img.shields.io/npm/v/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
 [![NPM downloads](https://img.shields.io/npm/dm/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
