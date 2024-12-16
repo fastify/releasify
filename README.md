@@ -3,7 +3,7 @@
 [![CI](https://github.com/fastify/releasify/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/fastify/releasify/actions/workflows/ci.yml)
 [![NPM version](https://img.shields.io/npm/v/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
 [![NPM downloads](https://img.shields.io/npm/dm/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
 
 A CLI tool to simplify your release process!
 
