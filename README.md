@@ -8,7 +8,7 @@
 A CLI tool to simplify your release process!
 
 **Important note**:
-This tool simplifies your release process, if you don't have one, it is the right time to start adopting one!
+This tool simplifies your release process. If you don't have one, it is time to adopt one!
 
 ## The Release Process with `releasify`
 
@@ -24,7 +24,7 @@ At this point, the tool will perform the following actions for you:
   * It updates the version of your `package.json` (version bump)
   * It publishes the module in the `npm` registry using your default settings
   * It commits & pushes the bumped version to your remote
-  * It creates a GitHub release with a CHANGELOG description also creating a tag with the same version as per your `package.json`
+  * It creates a GitHub release with a CHANGELOG description whilst also creating a tag with the same version as per your `package.json`
 
 A new version of your module is now published! 🎉
 
@@ -71,7 +71,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--gh-release-body|-x]            ➡ Automatically generate body via Github. When `true` will take priority over `--gh-release-edit`. Default `false`
                   [--gh-group-by-label|-l <label>] ➡ Group the commits in the changelog message by PR's labels
                   [--npm-access|-a <string>]       ➡ It will set the --access flag of `npm publish` command. Useful for scoped modules. The value must be [public, restricted]
-                  [--npm-dist-tag <string>]        ➡ It will add a npm tag to the module, like `beta` or `next`
+                  [--npm-dist-tag <string>]        ➡ It will add an npm tag to the module, like `beta` or `next`
                   [--npm-otp <code>]               ➡ It will provide the otp code to the npm publish. Use this only for CI. For publishing from your machine, omit this argument and you will be asked to enter OTP code just before the npm publish command gets executed.
                   [--major|-m]                     ➡ It will unlock the release of a major release
                   [--help|-h]                      ➡ Show this help message
@@ -88,7 +88,7 @@ releasify publish -v debug -s minor -k MY_ENV_OAUTH_KEY -e --npm-otp 123456
 ```
 ---
 
-This example releases a patch version of `mod` in the branch `1.x`. Here 2FA auth is disabled on NPM and the GitHub OAUTH token in stored as an environment variable as `GITHUB_OAUTH_TOKEN`:
+This example releases a patch version of `mod` in the branch `1.x`. Here 2FA auth is disabled on NPM and the GitHub OAUTH token is stored as an environment variable as `GITHUB_OAUTH_TOKEN`:
 
 
 ```sh
@@ -97,11 +97,11 @@ releasify publish -p ./mod -b 1.x -t v1.* -v debug -s patch
 
 Explanation:
 + `-b`: it will check that your local repository is in the right branch and it will be used in the bump phase
-+ `-t`: it will be used to explore the git history to find the commit messages. This is necessary when your tag name pattern doesn't follow the `v<semver-version>` pattern. By default the value of this parameter is `v${major version read from package.json}*`
++ `-t`: it will be used to explore the git history to find the commit messages. This is necessary when your tag name pattern doesn't follow the `v<semver-version>` pattern. By default, the value of this parameter is `v${major version read from package.json}*`
 
 ---
 
-The following example release a major version of `your-module` to NPM with a grouped GitHub release message.
+The following example releases a major version of `your-module` to NPM with a grouped GitHub release message.
 If a PR has many matching labels, it will be assigned to the first label in the command line.
 If a PR doesn't have any match with the label in the args, it will append at the end of the message.
 
@@ -133,11 +133,11 @@ The commits shown are
 
 Moreover, if the commit message is written with the pattern: `text describing (#123)`, where
 `(#123)` is the pull request ID, the labels of that PR are downloaded and processed by the template
-engine. These info are fetched from GitHub, keep in mind that there are [rate limits](https://developer.github.com/v3/#rate-limiting).
+engine. This info is fetched from GitHub. Keep in mind that there are [rate limits](https://developer.github.com/v3/#rate-limiting).
 
 ```sh
 releasify draft [--path|-p <path>]        ➡ The path to the project to draft. Default `pwd`
-                [--tag|-t <pattern>]      ➡ The pattern of the tag to draft. Useful for multi-branch project. Default `v${major version of the project}.\d+.\d+`
+                [--tag|-t <pattern>]      ➡ The pattern of the tag to draft. Useful for multi-branch projects. Default `v${major version of the project}.\d+.\d+`
                 [--from-commit <hash>]    ➡ Specify a commit hash where to start to generate the release message. Default `HEAD`
                 [--to-commit <hash>]      ➡ Specify a commit hash where to stop to generate the release message. The --tag arg will be ignored
                 [--semver|-s <release>]   ➡ Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
@@ -165,7 +165,7 @@ releasify draft --from-commit 93c914beb07eede9635d1234c20cff0e41f093a1 --to-comm
 ### ⚙ Config
 
 Save your default settings to speed up even more your release!
-Whan you run this command a prompt will ask you the value to store for the `arg` setting.
+When you run this command a prompt will ask you the value to store for the `arg` setting.
 The values are saved in an encrypted file, so it is human-unreadable.
 
 ```sh
@@ -176,7 +176,7 @@ releasify config [--arg <string>]          ➡ The argument to save
 
 #### Examples
 
-Save your github token (then digit it in the prompt):
+Save your GitHub token (then digit it in the prompt):
 
 ```sh
 releasify config --arg gh-token
