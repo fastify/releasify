@@ -14,9 +14,9 @@ function shouldThrows (cmd = {}, params) {
  * {
  *   tag: {inputChecker: func, throwError: true, history: number of tag commit list}
  *   log: {inputChecker: func, throwError: true, messages: [array of messages to use]}
- *   status: {throwError: true, dirty: true, tracking: 'origin/master'}
+ *   status: {throwError: true, dirty: true, tracking: 'origin/main'}
  *   add: {inputChecker: func, throwError: true}
- *   commit: {inputChecker: func, throwError: true, branch: 'master'}
+ *   commit: {inputChecker: func, throwError: true, branch: 'main'}
  *   push: {inputChecker: func, throwError: true}
  *   pull: {inputChecker: func, throwError: true}
  * }
@@ -71,7 +71,7 @@ module.exports = function factory (opts = {}) {
           modified.push('dirty-status.js')
         }
 
-        const tracking = (opts.status && opts.status.tracking) ? opts.status.tracking : 'origin/master'
+        const tracking = (opts.status && opts.status.tracking) ? opts.status.tracking : 'origin/main'
 
         cb(null, {
           not_added: [],
@@ -103,7 +103,7 @@ module.exports = function factory (opts = {}) {
 
         const commitMessage = {
           commit: 'HASH123',
-          branch: (opts.commit ? opts.commit.branch : '') || 'master'
+          branch: (opts.commit ? opts.commit.branch : '') || 'main'
         }
         cb(null, commitMessage)
       },
