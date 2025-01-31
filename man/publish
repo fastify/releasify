@@ -23,7 +23,7 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
       never ask for user input. Note that if 2FA is required for publishing this flag must be used with `npm-otp` flag
 
   -b, --branch <string>
-      The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
+      The branch you want to release. Useful when you need to release a multi-branch module. Default `main`
 
   -k, --gh-token <env name var | token>
       The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`

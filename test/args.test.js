@@ -79,7 +79,7 @@ test('check default values', t => {
     major: false,
     dryRun: false,
     remote: 'origin',
-    branch: 'master',
+    branch: 'main',
     fromCommit: 'HEAD',
     toCommit: undefined,
     noVerify: undefined,

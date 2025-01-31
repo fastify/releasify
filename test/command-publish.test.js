@@ -23,7 +23,7 @@ function buildOptions () {
     semver: null,
     major: false,
     remote: 'origin',
-    branch: 'master',
+    branch: 'main',
     fromCommit: 'HEAD',
     ghToken: 'INVALID_TOKEN',
     ghGroupByLabel: []
@@ -541,7 +541,7 @@ test('editor error', t => {
   t.rejects(() => cmd(opts), new Error('Something went wrong creating the release on GitHub.'))
 })
 
-test('publish a module from a branch that is not master', async t => {
+test('publish a module from a branch that is not main', async t => {
   t.plan(2)
 
   const opts = buildOptions()
