@@ -1,6 +1,6 @@
 # releasify
 
-[![CI](https://github.com/fastify/releasify/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/fastify/releasify/actions/workflows/ci.yml)
+[![CI](https://github.com/fastify/releasify/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/fastify/releasify/actions/workflows/ci.yml)
 [![NPM version](https://img.shields.io/npm/v/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
 [![NPM downloads](https://img.shields.io/npm/dm/releasify.svg?style=flat)](https://www.npmjs.com/package/releasify)
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
@@ -61,7 +61,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--semver|-s <release>]        ➡ Force the release type. The value must be [major, premajor, minor, preminor, patch, prepatch, prerelease]
                   [--verbose|-v <level>]         ➡ Print out more info. The value must be [trace, debug, info, warn, error]. Default `warn`
                   [--remote|-r <string>]         ➡ The remote git where push the bumped version. Useful if you are releasing. Default `origin`
-                  [--branch|-b <string>]         ➡ The branch you want to release. Useful when you need to release a multi-branch module. Default `master`
+                  [--branch|-b <string>]         ➡ The branch you want to release. Useful when you need to release a multi-branch module. Default `main`
                   [--silent]                     ➡ never ask for user input. Note that if 2FA is required for publishing this flag must be used with `npm-otp` flag
                   [--no-verify|-n]               ➡ Add the `--no-verify` to the commit, useful for slow test you don't need to run in case of bump
                   [--gh-token|-k <env | token>]  ➡ The GitHub OAUTH token. You can set it with an env var name or a valid token. Default env var `GITHUB_OAUTH_TOKEN`
