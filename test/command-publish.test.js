@@ -468,7 +468,7 @@ test('publish a module minor editing the release message', async t => {
         'open-editor': {
           make: (tmpFile) => {
             t.assert.deepStrictEqual(tmpFile.pop(), fakeFile)
-            return { arguments: [] }
+            return { arguments: [], isTerminalEditor: true }
           }
         },
         'node:child_process': {
