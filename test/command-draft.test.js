@@ -1,6 +1,6 @@
 'use strict'
 
-const t = require('tap')
+const { test } = require('node:test')
 const { join } = require('node:path')
 const h = require('./helper')
 
@@ -9,8 +9,6 @@ const cmd = h.buildProxyCommand('../lib/commands/draft', {
   github: { }, // default OK
   npm: { } // default OK
 })
-
-const { test } = t
 
 function buildOptions () {
   const options = {
@@ -27,8 +25,8 @@ function buildOptions () {
 
 test('mandatory options', t => {
   t.plan(2)
-  t.rejects(() => cmd({}), new Error("must have required property 'path',  must have required property 'fromCommit',  must have required property 'verbose'"))
-  t.rejects(() => cmd(buildOptions()), new Error('.tag must be string, .semver must be string, .semver must be equal to one of the allowed values'))
+  t.assert.rejects(() => cmd({}), new Error(" must have required property 'path',  must have required property 'fromCommit',  must have required property 'verbose'"))
+  t.assert.rejects(() => cmd(buildOptions()), new Error('.tag must be string, .semver must be string, .semver must be equal to one of the allowed values'))
 })
 
 test('draft a version forced release', async t => {
@@ -40,10 +38,10 @@ test('draft a version forced release', async t => {
   delete opts.tag // autosense
 
   const build = await cmd(opts)
-  t.equal(build.name, 'fake-project')
-  t.equal(build.version, '12.0.0')
-  t.equal(build.oldVersion, '11.14.42')
-  t.equal(build.message, '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n')
+  t.assert.deepStrictEqual(build.name, 'fake-project')
+  t.assert.deepStrictEqual(build.version, '12.0.0')
+  t.assert.deepStrictEqual(build.oldVersion, '11.14.42')
+  t.assert.deepStrictEqual(build.message, '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n')
 })
 
 test('draft a suggested release', async t => {
@@ -56,8 +54,8 @@ test('draft a suggested release', async t => {
 
   const build = await cmd(opts)
   // TODO: now the suggestedRelease is not implemented
-  t.equal(build.version, '11.14.42')
-  t.equal(build.oldVersion, '11.14.42')
+  t.assert.deepStrictEqual(build.version, '11.14.42')
+  t.assert.deepStrictEqual(build.oldVersion, '11.14.42')
 })
 
 test('draft a undefined commit message', async t => {
@@ -70,10 +68,10 @@ test('draft a undefined commit message', async t => {
   delete opts.tag // autosense
 
   const build = await cmd(opts)
-  t.equal(build.name, 'fake-project')
-  t.equal(build.version, '12.0.0')
-  t.equal(build.oldVersion, '11.14.42')
-  t.equal(build.message, undefined)
+  t.assert.deepStrictEqual(build.name, 'fake-project')
+  t.assert.deepStrictEqual(build.version, '12.0.0')
+  t.assert.deepStrictEqual(build.oldVersion, '11.14.42')
+  t.assert.deepStrictEqual(build.message, undefined)
 })
 
 test('draft a range commit release message', async t => {
@@ -92,7 +90,7 @@ test('draft a range commit release message', async t => {
       tag: { inputChecker () { t.fail('this function must not be called') } },
       log: {
         inputChecker (logArgs) {
-          t.strictSame(logArgs, {
+          t.assert.deepStrictEqual(logArgs, {
             from: opts.fromCommit,
             to: opts.toCommit
           })
@@ -122,7 +120,7 @@ test('draft a range commit release message when toCommit not specified and no ta
       tag: { history: 0 },
       log: {
         inputChecker (logArgs) {
-          t.strictSame(logArgs, {
+          t.assert.deepStrictEqual(logArgs, {
             from: opts.fromCommit,
             to: 'HEAD'
           })
@@ -144,7 +142,7 @@ test('draft the first release', async t => {
       tag: {
         history: 0,
         inputChecker (tagArgs) {
-          t.strictSame(tagArgs, [
+          t.assert.deepStrictEqual(tagArgs, [
             '--format=%(objectname)',
             '--sort=version:refname',
             '-l',
@@ -160,8 +158,8 @@ test('draft the first release', async t => {
   delete opts.semver // auto-calculate
 
   const build = await cmd(opts)
-  t.equal(build.version, '11.14.42')
-  t.equal(build.oldVersion, '11.14.42')
+  t.assert.deepStrictEqual(build.version, '11.14.42')
+  t.assert.deepStrictEqual(build.oldVersion, '11.14.42')
 })
 
 test('error management getting PR: works but won\' apply labels', async t => {
@@ -176,7 +174,7 @@ test('error management getting PR: works but won\' apply labels', async t => {
       labels: {
         throwError: true,
         inputChecker (labelsArgs) {
-          t.strictSame(labelsArgs, { owner: 'foo', repo: 'bar', issue_number: '12345' })
+          t.assert.deepStrictEqual(labelsArgs, { owner: 'foo', repo: 'bar', issue_number: '12345' })
         }
       }
     }
@@ -187,8 +185,8 @@ test('error management getting PR: works but won\' apply labels', async t => {
   delete opts.semver // auto-calculate
 
   const build = await cmd(opts)
-  t.equal(build.version, '11.14.42')
-  t.equal(build.oldVersion, '11.14.42')
+  t.assert.deepStrictEqual(build.version, '11.14.42')
+  t.assert.deepStrictEqual(build.oldVersion, '11.14.42')
 })
 
 test('group changelog message by labels', async t => {
@@ -230,7 +228,7 @@ test('group changelog message by labels', async t => {
   delete opts.semver // auto-calculate
 
   const build = await cmd(opts)
-  t.equal(build.message,
+  t.assert.deepStrictEqual(build.message,
     `**feature**:
 - four this is feature (#4)
 
@@ -287,7 +285,7 @@ test('group changelog order', async t => {
   delete opts.semver // auto-calculate
 
   const build = await cmd(opts)
-  t.equal(build.message,
+  t.assert.deepStrictEqual(build.message,
     `**documentation**:
 - three this is a doc bugfix (#3)
 
