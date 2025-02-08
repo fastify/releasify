@@ -1,17 +1,17 @@
 'use strict'
 
-const { test } = require('tap')
+const { test } = require('node:test')
 const getRepositoryUrl = require('../lib/get-repository-url')
 
-test('getRepositoryUrl', (t) => {
-  test('returns url', (t) => {
+test('getRepositoryUrl', async (t) => {
+  await t.test('returns url', (t) => {
     const url = getRepositoryUrl({
       getRepoPackage: () => ({
         repository: 'git+https://github.com/foo/bar.git'
       })
     })
 
-    t.equal(url, 'git+https://github.com/foo/bar.git')
+    t.assert.deepStrictEqual(url, 'git+https://github.com/foo/bar.git')
 
     const url2 = getRepositoryUrl({
       getRepoPackage: () => ({
@@ -22,17 +22,14 @@ test('getRepositoryUrl', (t) => {
       })
     })
 
-    t.equal(url2, 'git+https://github.com/foo/bar.git')
-    t.end()
+    t.assert.deepStrictEqual(url2, 'git+https://github.com/foo/bar.git')
   })
 
-  test('throws when repository is missing', (t) => {
-    t.throws(() => {
+  await t.test('throws when repository is missing', (t) => {
+    t.assert.throws(() => {
       getRepositoryUrl({
         getRepoPackage: () => ({})
       })
     })
-    t.end()
   })
-  t.end()
 })

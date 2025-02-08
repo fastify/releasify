@@ -1,50 +1,70 @@
 'use strict'
 
-const t = require('tap')
+const { test } = require('node:test')
 const h = require('./helper')
 const pkg = require('../package.json')
 
-t.test('defaults to help', t => {
+test('defaults to help', t => {
   t.plan(1)
   const cli = h.execute('', [])
   cli.stdout.setEncoding('utf8')
+  const { promise, resolve } = h.withResolvers()
   cli.stdout.on('data', output => {
-    t.match(output, h.readFileHelp('help'))
+    t.assert.deepStrictEqual(output, h.readFileHelp('help'))
+    resolve()
   })
+
+  return promise
 })
 
-t.test('version', t => {
+test('version', t => {
   t.plan(1)
   const cli = h.execute('', ['--version'])
   cli.stdout.setEncoding('utf8')
+  const { promise, resolve } = h.withResolvers()
   cli.stdout.on('data', output => {
-    t.match(output, pkg.version)
+    t.assert.ok(output.includes(pkg.version))
+    resolve()
   })
+
+  return promise
 })
 
-t.test('version strict', t => {
+test('version strict', t => {
   t.plan(1)
   const cli = h.execute('', ['-v'])
   cli.stdout.setEncoding('utf8')
+  const { promise, resolve } = h.withResolvers()
   cli.stdout.on('data', output => {
-    t.match(output, pkg.version)
+    t.assert.ok(output.includes(pkg.version))
+    resolve()
   })
+
+  return promise
 })
 
-t.test('version win over help', t => {
+test('version win over help', t => {
   t.plan(1)
   const cli = h.execute('', ['-h', '-v'])
   cli.stdout.setEncoding('utf8')
+  const { promise, resolve } = h.withResolvers()
   cli.stdout.on('data', output => {
-    t.match(output, pkg.version)
+    t.assert.ok(output.includes(pkg.version))
+    resolve()
   })
+
+  return promise
 })
 
-t.test('config error', t => {
+test('config error', t => {
   t.plan(1)
   const cli = h.execute('config', ['--arg', 'wrong'])
   cli.stdout.setEncoding('utf8')
+  const { promise, resolve } = h.withResolvers()
   cli.stdout.on('data', output => {
-    t.match(output, /arg must be equal to one of the allowed values/)
+    t.assert.match(output, /arg must be equal to one of the allowed values/)
+    resolve()
   })
+
+  return promise
 })

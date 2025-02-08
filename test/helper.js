@@ -36,9 +36,19 @@ function buildProxyCommand (commandPath, opts = {}) {
   })
 }
 
+function withResolvers () {
+  let promiseResolve, promiseReject
+  const promise = new Promise((resolve, reject) => {
+    promiseResolve = resolve
+    promiseReject = reject
+  })
+  return { promise, resolve: promiseResolve, reject: promiseReject }
+}
+
 module.exports = {
   wait,
   readFileHelp,
   execute,
-  buildProxyCommand
+  buildProxyCommand,
+  withResolvers
 }

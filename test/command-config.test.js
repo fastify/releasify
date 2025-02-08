@@ -1,13 +1,11 @@
 'use strict'
 
-const t = require('tap')
+const { test } = require('node:test')
 const h = require('./helper')
 const fs = require('node:fs')
 
 const cmd = h.buildProxyCommand('../lib/commands/config')
 const LocalConf = require('../lib/local-conf')
-
-const { test } = t
 
 function buildOptions () {
   const options = {
@@ -19,8 +17,8 @@ function buildOptions () {
 
 test('mandatory options', t => {
   t.plan(2)
-  t.rejects(() => cmd({}), new Error("must have required property 'arg'"))
-  t.rejects(() => cmd(buildOptions()), new Error('.arg must be equal to one of the allowed values, .verbose must be equal to one of the allowed values'))
+  t.assert.rejects(() => cmd({}), new Error(" must have required property 'arg'"))
+  t.assert.rejects(() => cmd(buildOptions()), new Error('.arg must be equal to one of the allowed values, .verbose must be equal to one of the allowed values'))
 })
 
 test('save config data', async t => {
@@ -44,16 +42,16 @@ test('save config data', async t => {
   })
 
   const build = await cmd(opts)
-  t.equal(build.arg, opts.arg)
-  t.match(build.path.toLowerCase(), /releasify-nodejs[/\\].*releasify.json$/)
+  t.assert.deepStrictEqual(build.arg, opts.arg)
+  t.assert.match(build.path.toLowerCase(), /releasify-nodejs[/\\].*releasify.json$/)
 
   t.test('correct value saved', t => {
     const localConf = LocalConf()
     t.plan(1)
-    t.equal(localConf.get('semver'), inputValue)
+    t.assert.deepStrictEqual(localConf.get('semver'), inputValue)
   })
 
-  t.teardown(() => {
+  t.after(() => {
     fs.unlinkSync(build.path)
   })
 })
