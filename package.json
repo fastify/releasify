@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "test": "tap"
+    "test": "c8 --100 node --test"
   },
   "dependencies": {
     "@octokit/rest": "^19.0.3",
@@ -30,10 +30,10 @@
     "yargs-parser": "^21.1.0"
   },
   "devDependencies": {
+    "c8": "^10.1.3",
     "eslint": "^9.17.0",
     "neostandard": "^0.12.0",
-    "proxyquire": "^2.1.3",
-    "tap": "^16.0.0"
+    "proxyquire": "^2.1.3"
   },
   "repository": {
     "type": "git",

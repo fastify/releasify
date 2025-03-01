@@ -1,7 +1,7 @@
 'use strict'
 
 const { EventEmitter } = require('node:events')
-const t = require('tap')
+const { test } = require('node:test')
 const { join } = require('node:path')
 const proxyquire = require('proxyquire')
 const h = require('./helper')
@@ -11,8 +11,6 @@ const cmd = h.buildProxyCommand('../lib/commands/publish', {
   github: { }, // default OK
   npm: { } // default OK
 })
-
-const { test } = t
 
 function buildOptions () {
   // TODO optimize using args instead
@@ -33,11 +31,11 @@ function buildOptions () {
 
 test('mandatory options', t => {
   t.plan(2)
-  t.rejects(() => cmd({}), new Error(" must have required property 'path',  must have required property 'verbose',  must have required property 'major',  must have required property 'remote',  must have required property 'branch',  must have required property 'semver',  must have required property 'ghToken'"))
-  t.rejects(() => cmd(buildOptions()), new Error('.tag must be string, .ghToken must NOT have fewer than 40 characters, .semver must be string, .semver must be equal to one of the allowed values'))
+  t.assert.rejects(() => cmd({}), new Error(" must have required property 'path',  must have required property 'verbose',  must have required property 'major',  must have required property 'remote',  must have required property 'branch',  must have required property 'semver',  must have required property 'ghToken'"))
+  t.assert.rejects(() => cmd(buildOptions()), new Error('.tag must be string, .ghToken must NOT have fewer than 40 characters, .semver must be string, .semver must be equal to one of the allowed values'))
 })
 
-test('try to publish a repo not sync', t => {
+test('try to publish a repo not sync', async t => {
   t.plan(1)
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
     git: { status: { dirty: true } }
@@ -46,7 +44,13 @@ test('try to publish a repo not sync', t => {
   opts.semver = 'patch'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('The git repo must be clean (committed and pushed) before releasing!'))
+
+  try {
+    await cmd(opts)
+    t.assert.fail('should not succeed')
+  } catch (error) {
+    t.assert.ok(error.message.includes('The git repo must be clean (committed and pushed) before releasing!'))
+  }
 })
 
 test('try to publish 0 new commits', t => {
@@ -58,7 +62,7 @@ test('try to publish 0 new commits', t => {
   opts.semver = 'patch'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('There are ZERO commit to release!'))
+  t.assert.rejects(() => cmd(opts), new Error('There are ZERO commit to release!'))
 })
 
 test('try to publish with a wrong token', t => {
@@ -70,7 +74,7 @@ test('try to publish with a wrong token', t => {
   opts.semver = 'patch'
   opts.ghToken = 'NOT-EXISTING-ENV-KEY'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('.ghToken must NOT have fewer than 40 characters'))
+  t.assert.rejects(() => cmd(opts), new Error('.ghToken must NOT have fewer than 40 characters'))
 })
 
 test('npm ping failed', t => {
@@ -83,7 +87,7 @@ test('npm ping failed', t => {
   opts.semver = 'minor'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('npm ping returned code 1 and signal undefined'))
+  t.assert.rejects(() => cmd(opts), new Error('npm ping returned code 1 and signal undefined\nSTDOUT: \nSTDERR: '))
 })
 
 test('publish a module never released', async t => {
@@ -98,8 +102,8 @@ test('publish a module never released', async t => {
     github: {
       release: {
         inputChecker (releaseParams) {
-          t.equal(releaseParams.tag_name, 'v11.15.0')
-          t.equal(releaseParams.name, releaseParams.tag_name)
+          t.assert.deepStrictEqual(releaseParams.tag_name, 'v11.15.0')
+          t.assert.deepStrictEqual(releaseParams.name, releaseParams.tag_name)
         }
       }
     },
@@ -111,7 +115,7 @@ test('publish a module never released', async t => {
   delete opts.tag
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 1,
     message: '📚 PR:\n- this is a standard comment (#123)\n',
     name: 'fake-project',
@@ -134,7 +138,7 @@ test('publish a module never released and fail the pull', async t => {
   delete opts.tag
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 1,
     message: '📚 PR:\n- this is a standard comment (#123)\n',
     name: 'fake-project',
@@ -159,7 +163,7 @@ test('try to publish a module version already released', t => {
   opts.semver = 'minor'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('The module fake-project@11.15.0 is already published in the registry my-registry'))
+  t.assert.rejects(() => cmd(opts), new Error('The module fake-project@11.15.0 is already published in the registry my-registry'))
 })
 
 test('fails to push the release', t => {
@@ -177,7 +181,7 @@ test('fails to push the release', t => {
     external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
   })
 
-  t.rejects(() => cmd(opts), new Error("Something went wrong pushing the package.json to git.\nThe 'npm publish' has been done! Check your 'git status' and if necessary run 'npm unpublish fake-project@11.14.43'.\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)\n"))
+  t.assert.rejects(() => cmd(opts), new Error("Something went wrong pushing the package.json to git.\nThe 'npm publish' has been done! Check your 'git status' and if necessary run 'npm unpublish fake-project@11.14.43'.\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)\n"))
 })
 
 test('fails to build the release', t => {
@@ -194,7 +198,7 @@ test('fails to build the release', t => {
     external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 1 } } }) }
   })
 
-  t.rejects(() => cmd(opts), new Error("Something went wrong creating the release on GitHub.\nThe 'npm publish' and 'git push' has been done!\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)"))
+  t.assert.rejects(() => cmd(opts), new Error("Something went wrong creating the release on GitHub.\nThe 'npm publish' and 'git push' has been done!\nConsider creating a release on GitHub by yourself with this message:\n📚 PR:\n- this is a standard comment (#123)\n"))
 })
 
 test('try to publish a module major', t => {
@@ -206,7 +210,7 @@ test('try to publish a module major', t => {
   opts.semver = 'major'
   opts.ghToken = '0000000000000000000000000000000000000000'
   delete opts.tag
-  t.rejects(() => cmd(opts), new Error('You can not release a major version without --major flag'))
+  t.assert.rejects(() => cmd(opts), new Error('You can not release a major version without --major flag'))
 })
 
 test('publish a module major', async t => {
@@ -228,7 +232,7 @@ test('publish a module major', async t => {
       publish: {
         code: 0,
         inputChecker (publishArgs) {
-          t.strictSame(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess])
+          t.assert.deepStrictEqual(publishArgs, ['--tag', opts.npmDistTag, '--access', opts.npmAccess])
         }
       }
     },
@@ -236,7 +240,7 @@ test('publish a module major', async t => {
   })
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 3,
     message: '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n',
     name: 'fake-project',
@@ -259,9 +263,9 @@ test('publish a module with github generate release notes', async t => {
     github: {
       release: {
         inputChecker (releaseParams) {
-          t.equal(releaseParams.tag_name, 'v11.15.0')
-          t.equal(releaseParams.name, releaseParams.tag_name)
-          t.equal(releaseParams.generate_release_notes, true)
+          t.assert.deepStrictEqual(releaseParams.tag_name, 'v11.15.0')
+          t.assert.deepStrictEqual(releaseParams.name, releaseParams.tag_name)
+          t.assert.deepStrictEqual(releaseParams.generate_release_notes, true)
         }
       }
     },
@@ -275,7 +279,7 @@ test('publish a module with github generate release notes', async t => {
   delete opts.tag
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 1,
     message: undefined,
     name: 'fake-project',
@@ -298,9 +302,9 @@ test('publish a module with gh-release-body taking priority', async t => {
     github: {
       release: {
         inputChecker (releaseParams) {
-          t.equal(releaseParams.tag_name, 'v11.15.0')
-          t.equal(releaseParams.name, releaseParams.tag_name)
-          t.equal(releaseParams.generate_release_notes, true)
+          t.assert.deepStrictEqual(releaseParams.tag_name, 'v11.15.0')
+          t.assert.deepStrictEqual(releaseParams.name, releaseParams.tag_name)
+          t.assert.deepStrictEqual(releaseParams.generate_release_notes, true)
         }
       }
     },
@@ -315,7 +319,7 @@ test('publish a module with gh-release-body taking priority', async t => {
   delete opts.tag
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 1,
     message: undefined,
     name: 'fake-project',
@@ -346,7 +350,7 @@ test('publish a module minor with no-verify', async t => {
   })
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 2,
     message: '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n',
     name: 'fake-project',
@@ -381,8 +385,8 @@ test('publish npm error', async t => {
     await cmd(opts)
     t.fail('should not succeed')
   } catch (error) {
-    t.ok(error)
-    t.equal(error.message, `npm publish,--access,public returned code 1 and signal foo
+    t.assert.ok(error)
+    t.assert.deepStrictEqual(error.message, `npm publish,--access,public returned code 1 and signal foo
 STDOUT: publishing...
 STDERR: npm OTP required`)
   }
@@ -412,7 +416,7 @@ test('publish npm within npm-otp input', async t => {
         {
           code: 0,
           inputChecker (publishArgs) {
-            t.strictSame(publishArgs, ['--access', opts.npmAccess, '--otp', '123456'])
+            t.assert.deepStrictEqual(publishArgs, ['--access', opts.npmAccess, '--otp', '123456'])
           }
         }
       ]
@@ -421,7 +425,7 @@ test('publish npm within npm-otp input', async t => {
       './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 2 } } }),
       enquirer: {
         Input: function (params) {
-          t.match(params.message, /fake-project@11\.15\.0/)
+          t.assert.match(params.message, /fake-project@11\.15\.0/)
           return { async run () { return '123456' } }
         }
       }
@@ -429,7 +433,7 @@ test('publish npm within npm-otp input', async t => {
   })
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 2,
     message: '📚 PR:\n- this is a standard comment (#123)\n- this is a standard comment (#123)\n',
     name: 'fake-project',
@@ -463,8 +467,8 @@ test('publish a module minor editing the release message', async t => {
         'temp-write': async (message, filename) => fakeFile,
         'open-editor': {
           make: (tmpFile) => {
-            t.equal(tmpFile.pop(), fakeFile)
-            return { arguments: [] }
+            t.assert.deepStrictEqual(tmpFile.pop(), fakeFile)
+            return { arguments: [], isTerminalEditor: true }
           }
         },
         'node:child_process': {
@@ -476,17 +480,17 @@ test('publish a module minor editing the release message', async t => {
         },
         'node:fs': {
           readFile (tmpFile, opts, cb) {
-            t.equal(tmpFile, fakeFile)
+            t.assert.deepStrictEqual(tmpFile, fakeFile)
             cb(null, 'my message')
           },
-          unlink (tmpFile) { t.equal(tmpFile, fakeFile) }
+          unlink (tmpFile) { t.assert.deepStrictEqual(tmpFile, fakeFile) }
         }
       })
     }
   })
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 2,
     message: 'my message',
     name: 'fake-project',
@@ -496,7 +500,7 @@ test('publish a module minor editing the release message', async t => {
   })
 })
 
-test('editor error', t => {
+test('editor error', async t => {
   t.plan(2)
 
   const opts = buildOptions()
@@ -520,7 +524,7 @@ test('editor error', t => {
         'temp-write': async (message, filename) => fakeFile,
         'open-editor': {
           make: (tmpFile) => {
-            t.equal(tmpFile.pop(), fakeFile)
+            t.assert.deepStrictEqual(tmpFile.pop(), fakeFile)
             return { arguments: [] }
           }
         },
@@ -538,7 +542,12 @@ test('editor error', t => {
     }
   })
 
-  t.rejects(() => cmd(opts), new Error('Something went wrong creating the release on GitHub.'))
+  try {
+    await cmd(opts)
+    t.assert.fail('should not succeed')
+  } catch (error) {
+    t.assert.ok(error.message.includes, 'Something went wrong creating the release on GitHub.')
+  }
 })
 
 test('publish a module from a branch that is not main', async t => {
@@ -563,7 +572,7 @@ test('publish a module from a branch that is not main', async t => {
     github: {
       release: {
         inputChecker (releaseParams) {
-          t.equal(releaseParams.target_commitish, opts.branch)
+          t.assert.deepStrictEqual(releaseParams.target_commitish, opts.branch)
         }
       }
     },
@@ -571,7 +580,7 @@ test('publish a module from a branch that is not main', async t => {
   })
 
   const out = await cmd(opts)
-  t.strictSame(out, {
+  t.assert.deepStrictEqual(out, {
     lines: 1,
     message: '📚 PR:\n- this is a standard comment (#123)\n',
     name: 'fake-project',
