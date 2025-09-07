@@ -58,22 +58,6 @@ test('draft a suggested release', async t => {
   t.assert.deepStrictEqual(build.oldVersion, '11.14.42')
 })
 
-test('draft a undefined commit message', async t => {
-  t.plan(4)
-
-  const opts = buildOptions()
-  opts.ghReleaseBody = true
-  opts.path = join(__dirname, 'fake-project/')
-  opts.semver = 'major'
-  delete opts.tag // autosense
-
-  const build = await cmd(opts)
-  t.assert.deepStrictEqual(build.name, 'fake-project')
-  t.assert.deepStrictEqual(build.version, '12.0.0')
-  t.assert.deepStrictEqual(build.oldVersion, '11.14.42')
-  t.assert.deepStrictEqual(build.message, undefined)
-})
-
 test('draft a range commit release message', async t => {
   t.plan(1)
 
@@ -303,5 +287,29 @@ test('group changelog order', async t => {
 - five this is a typescript pr (#5)
 
 
+`)
+})
+
+test('draft a release without collecting labels', async t => {
+  t.plan(1)
+
+  const cmd = h.buildProxyCommand('../lib/commands/draft', {
+    git: {
+      tag: { history: 5 },
+    },
+  })
+  const opts = buildOptions()
+  opts.path = join(__dirname, 'fake-project/')
+  opts.ghReleaseBody = true
+  delete opts.tag // autosense
+  delete opts.semver // auto-calculate
+
+  const build = await cmd(opts)
+  t.assert.deepStrictEqual(build.message, `📚 PR:
+- this is a standard comment (#123)
+- this is a standard comment (#123)
+- this is a standard comment (#123)
+- this is a standard comment (#123)
+- this is a standard comment (#123)
 `)
 })
