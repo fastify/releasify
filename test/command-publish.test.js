@@ -290,7 +290,7 @@ test('publish a module with github generate release notes', async t => {
 })
 
 test('publish a module with gh-release-body taking priority', async t => {
-  t.plan(4)
+  t.plan(5)
 
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
     npm: {
