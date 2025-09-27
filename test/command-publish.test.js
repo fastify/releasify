@@ -290,7 +290,7 @@ test('publish a module with github generate release notes', async t => {
 })
 
 test('publish a module with gh-release-body taking priority', async t => {
-  t.plan(4)
+  t.plan(5)
 
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
     npm: {
@@ -305,6 +305,7 @@ test('publish a module with gh-release-body taking priority', async t => {
           t.assert.deepStrictEqual(releaseParams.tag_name, 'v11.15.0')
           t.assert.deepStrictEqual(releaseParams.name, releaseParams.tag_name)
           t.assert.deepStrictEqual(releaseParams.generate_release_notes, true)
+          t.assert.equal(releaseParams.body, undefined)
         }
       }
     },
