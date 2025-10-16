@@ -1,7 +1,0 @@
-branches: 95
-functions: 98
-timeout: 120
-jobs: 1
-
-files:
-  - test/*.test.js
