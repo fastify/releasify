@@ -20,7 +20,7 @@
     "conf": "^10.0.0",
     "debug": "^4.3.2",
     "enquirer": "^2.3.5",
-    "open-editor": "^3.0.0",
+    "open-editor": "^6.0.0",
     "parse-github-url": "^1.0.2",
     "pino": "^8.0.0",
     "pino-pretty": "^10.0.0",
