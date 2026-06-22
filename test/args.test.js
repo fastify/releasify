@@ -10,7 +10,7 @@ test('parse all args', t => {
 
   const argv = [
     '--arg', 'arg',
-    '--help=true',
+    '--help',
     '--path', 'a/path',
     '--tag', 'vPattern',
     '--verbose', 'info',
@@ -21,7 +21,7 @@ test('parse all args', t => {
     '--branch', 'v1',
     '--from-commit', 'commitFrom',
     '--to-commit', 'commitTo',
-    '--no-verify=true',
+    '--no-verify',
     '--npm-otp', '123123',
     '--silent=true',
     '--npm-access', 'public',
@@ -30,7 +30,7 @@ test('parse all args', t => {
     '--gh-release-edit=true',
     '--gh-release-draft=true',
     '--gh-release-prerelease=true',
-    '--gh-release-body=true',
+    '--gh-release-body',
     '--gh-group-by-label', 'bugfix',
     '--gh-group-by-label', 'docs'
   ]
