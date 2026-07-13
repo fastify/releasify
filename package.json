@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "test": "c8 --100 node --test"
+    "test": "c8 --100 node --test --test-concurrency=1"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.1",
