@@ -444,6 +444,64 @@ test('publish npm within npm-otp input', async t => {
   })
 })
 
+test('publish npm with npm-browser-auth', async t => {
+  t.plan(2)
+
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  opts.npmAccess = 'public'
+  opts.npmBrowserAuth = true
+  opts.noVerify = true
+  opts.silent = false
+  delete opts.tag
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    npm: {
+      ping: { code: 0, data: 'Ping success: {}' },
+      config: { code: 0, data: 'my-registry' },
+      whoami: { code: 0, data: 'John Doo' },
+      publish: {
+        code: 0,
+        data: 'Open this URL in your browser to authenticate:\nhttps://www.npmjs.com/auth/cli/abc123\n',
+        errorData: 'npm notice waiting for browser authentication...\n',
+        inputChecker (publishArgs) {
+          t.assert.deepStrictEqual(publishArgs, [
+            '--access',
+            opts.npmAccess,
+            '--auth-type=web'
+          ])
+        }
+      }
+    },
+    external: {
+      './draft': h.buildProxyCommand('../lib/commands/draft', {
+        git: { tag: { history: 2 } }
+      })
+    }
+  })
+
+  const out = await cmd(opts)
+  t.assert.deepStrictEqual(out.version, '11.15.0')
+})
+
+test('reject when npm-otp and npm-browser-auth are used together', async t => {
+  t.plan(1)
+
+  const opts = buildOptions()
+  opts.semver = 'minor'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  opts.npmOtp = '123456'
+  opts.npmBrowserAuth = true
+  delete opts.tag
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    external: { './draft': h.buildProxyCommand('../lib/commands/draft', { git: { tag: { history: 2 } } }) }
+  })
+
+  await t.assert.rejects(() => cmd(opts), new Error('You can not use --npm-otp and --npm-browser-auth together, choose one 2FA method'))
+})
+
 test('publish a module minor editing the release message', async t => {
   t.plan(4)
 
