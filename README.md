@@ -193,4 +193,4 @@ releasify config --arg verbose -v info
 
 Licensed under [MIT](./LICENSE).
 
-[gh-token]: https://help.github.com/articles/creating-an-access-token-for-command-line-use
+[gh-token]: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens
