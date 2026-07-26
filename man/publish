@@ -1,4 +1,4 @@
-Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--no-verify|-n] [--gh-token|-k <env name var | token>] [--gh-release-edit|-e] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--major|-m] [--help|-h]
+Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <release>] [--verbose|-v <level>] [--remote|-r <string>] [--branch|-b <string>] [--no-verify|-n] [--gh-token|-k <env name var | token>] [--gh-release-edit|-e] [--gh-release-draft] [--gh-release-prerelease] [--npm-access|-a <string>] [--npm-dist-tag <string>] [--npm-otp <code>] [--npm-browser-auth] [--major|-m] [--help|-h]
   publish to npm a new version of a module and create the GitHub Release with the changelogs
 
   -p, --path <path>
@@ -51,6 +51,10 @@ Usage: releasify publish [--path|-p <path>] [--tag|-t <pattern>] [--semver|-s <r
 
   --npm-otp <code>
       It will provide the otp code to the npm publish. For publishing from your machine, omit this argument-you will be asked to enter OTP code just before the npm publish command gets executed.
+
+  --npm-browser-auth
+      It will use npm's web-based authentication (Passkeys / WebAuthn) instead of a 6-digit OTP. A confirmation URL will be printed and releasify will wait until you approve it in the browser. Cannot be used together with `--npm-otp`.
+
   -m, --major
       It will unlock the release of a major release
 
