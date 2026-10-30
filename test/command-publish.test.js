@@ -63,7 +63,7 @@ test('mandatory options', (t) => {
 })
 
 test('try to publish a repo not sync', async (t) => {
-  t.plan(1)
+  t.plan(2)
   const cmd = h.buildProxyCommand('../lib/commands/publish', {
     git: { status: { dirty: true } }
   })
@@ -81,6 +81,46 @@ test('try to publish a repo not sync', async (t) => {
         'The git repo must be clean (committed and pushed) before releasing!'
       )
     )
+    t.assert.match(error.message, /- modified: \["dirty-status\.js"\]/)
+  }
+})
+
+test('try to publish a repo tracked not to main branch', async (t) => {
+  t.plan(3)
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    git: { status: { tracking: 'origin/develop' } }
+  })
+  const opts = buildOptions()
+  opts.semver = 'patch'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  delete opts.tag
+
+  try {
+    await cmd(opts)
+    t.assert.fail('should not succeed')
+  } catch (error) {
+    t.assert.match(error.message, /origin\/main/)
+    t.assert.match(error.message, /origin\/develop/)
+    t.assert.match(error.message, /--branch/)
+  }
+})
+
+test('try to publish a branch that does not track any remote branch', async (t) => {
+  t.plan(2)
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    git: { status: { tracking: null } }
+  })
+  const opts = buildOptions()
+  opts.semver = 'patch'
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  delete opts.tag
+
+  try {
+    await cmd(opts)
+    t.assert.fail('should not succeed')
+  } catch (error) {
+    t.assert.match(error.message, /doesn't track any remote branch/)
+    t.assert.match(error.message, /git push -u origin main/)
   }
 })
 
