@@ -146,6 +146,56 @@ test('draft the first release', async t => {
   t.assert.deepStrictEqual(build.oldVersion, '11.14.42')
 })
 
+test('draft the first release includes all commits when no tags exist', async t => {
+  t.plan(4)
+
+  const { execFileSync } = require('node:child_process')
+  const { mkdtempSync, rmSync, writeFileSync } = require('node:fs')
+  const { tmpdir } = require('node:os')
+  const realCmd = require('../lib/commands/draft')
+  const projectPath = mkdtempSync(join(tmpdir(), 'releasify-first-release-'))
+  const packagePath = join(projectPath, 'package.json')
+  const runGit = args => execFileSync('git', args, { cwd: projectPath })
+
+  t.after(() => rmSync(projectPath, { recursive: true, force: true }))
+  runGit(['init', '--quiet'])
+  runGit(['config', 'user.name', 'Test User'])
+  runGit(['config', 'user.email', 'test@example.com'])
+  runGit(['config', 'commit.gpgsign', 'false'])
+
+  writeFileSync(packagePath, JSON.stringify({
+    name: 'first-release',
+    version: '1.0.0',
+    repository: { url: 'https://github.com/example/first-release' }
+  }))
+  runGit(['add', 'package.json'])
+  runGit(['commit', '--quiet', '-m', 'initial commit'])
+
+  writeFileSync(packagePath, JSON.stringify({
+    name: 'first-release',
+    version: '1.0.0',
+    description: 'Second commit',
+    repository: { url: 'https://github.com/example/first-release' }
+  }))
+  runGit(['add', 'package.json'])
+  runGit(['commit', '--quiet', '-m', 'second commit'])
+
+  const build = await realCmd({
+    path: projectPath,
+    tag: 'no-matching-tags',
+    verbose: 'error',
+    fromCommit: 'HEAD',
+    semver: 'patch',
+    ghGroupByLabel: [],
+    ghReleaseBody: false
+  })
+
+  t.assert.equal(build.lines, 2)
+  t.assert.equal(build.version, '1.0.1')
+  t.assert.match(build.message, /initial commit/)
+  t.assert.match(build.message, /second commit/)
+})
+
 test('error management getting PR: works but won\' apply labels', async t => {
   t.plan(3)
 
