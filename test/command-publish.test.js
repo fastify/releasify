@@ -825,3 +825,82 @@ test('publish a module from a branch that is not main', async (t) => {
     version: '11.15.0'
   })
 })
+
+test('publish a module with skip-npm', async (t) => {
+  t.plan(4)
+
+  const opts = buildOptions()
+  delete opts.semver
+  opts.skipNpm = true
+  opts.ghToken = '0000000000000000000000000000000000000000'
+  delete opts.tag
+
+  const cmd = h.buildProxyCommand('../lib/commands/publish', {
+    git: {
+      add: {
+        inputChecker () {
+          t.assert.fail('git.add must not be called when skipNpm is true')
+        }
+      },
+      commit: {
+        inputChecker () {
+          t.assert.fail('git.commit must not be called when skipNpm is true')
+        }
+      },
+      push: {
+        inputChecker () {
+          t.assert.fail('git.push must not be called when skipNpm is true')
+        }
+      },
+      pull: {
+        inputChecker (pullParams) {
+          t.assert.deepStrictEqual(pullParams, [
+            opts.remote,
+            '--tags',
+            '--quiet'
+          ])
+        }
+      }
+    },
+    npm: {
+      ping: {
+        inputChecker () {
+          t.assert.fail('npm.ping must not be called when skipNpm is true')
+        }
+      },
+      version: {
+        inputChecker () {
+          t.assert.fail('npm.version must not be called when skipNpm is true')
+        }
+      },
+      publish: {
+        inputChecker () {
+          t.assert.fail('npm.publish must not be called when skipNpm is true')
+        }
+      }
+    },
+    github: {
+      release: {
+        inputChecker (releaseParams) {
+          t.assert.deepStrictEqual(releaseParams.tag_name, 'v11.14.42')
+          t.assert.deepStrictEqual(releaseParams.target_commitish, opts.branch)
+        }
+      }
+    },
+    external: {
+      './draft': h.buildProxyCommand('../lib/commands/draft', {
+        git: { tag: { history: 1 } }
+      })
+    }
+  })
+
+  const out = await cmd(opts)
+  t.assert.deepStrictEqual(out, {
+    lines: 1,
+    message: '📚 PR:\n- this is a standard comment (#123)\n',
+    name: 'fake-project',
+    oldVersion: '11.14.42',
+    release: 'unpredictable',
+    version: '11.14.42'
+  })
+})
