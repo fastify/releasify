@@ -6,7 +6,7 @@ const parseArgs = require('../lib/args')
 const proxyquire = require('proxyquire')
 
 test('parse all args', t => {
-  t.plan(25)
+  t.plan(26)
 
   const argv = [
     '--arg', 'arg',
@@ -61,6 +61,7 @@ test('parse all args', t => {
   t.assert.deepStrictEqual(parsedArgs.ghReleaseBody, true)
   t.assert.deepStrictEqual(parsedArgs.ghGroupByLabel, ['bugfix', 'docs'])
   t.assert.deepStrictEqual(parsedArgs.npmBrowserAuth, false)
+  t.assert.deepStrictEqual(parsedArgs.skipNpm, false)
 })
 
 test('parse npm-browser-auth flag', t => {
@@ -71,8 +72,16 @@ test('parse npm-browser-auth flag', t => {
   t.assert.deepStrictEqual(parsedArgs.npmBrowserAuth, true)
 })
 
+test('parse skip-npm flag', t => {
+  t.plan(1)
+
+  const parsedArgs = parseArgs(['--skip-npm'])
+
+  t.assert.deepStrictEqual(parsedArgs.skipNpm, true)
+})
+
 test('check default values', t => {
-  t.plan(25)
+  t.plan(26)
   const parsedArgs = parseArgs([])
 
   t.assert.deepStrictEqual(parsedArgs._, [])
@@ -100,6 +109,7 @@ test('check default values', t => {
   t.assert.deepStrictEqual(parsedArgs.ghReleaseBody, false)
   t.assert.deepStrictEqual(parsedArgs.ghGroupByLabel, [])
   t.assert.deepStrictEqual(parsedArgs.npmBrowserAuth, false)
+  t.assert.deepStrictEqual(parsedArgs.skipNpm, false)
 })
 
 test('parse args with = assignment', t => {
@@ -150,6 +160,7 @@ test('parse args with = assignment', t => {
     noVerify: false,
     npmOtp: '123123',
     npmBrowserAuth: false,
+    skipNpm: false,
     silent: false,
     npmAccess: 'public',
     npmDistTag: 'next',

@@ -74,6 +74,7 @@ releasify publish [--path|-p <path>]             ➡ The path to the project to 
                   [--npm-dist-tag <string>]        ➡ It will add an npm tag to the module, like `beta` or `next`
                   [--npm-otp <code>]               ➡ It will provide the otp code to the npm publish. Use this only for CI. For publishing from your machine, omit this argument and you will be asked to enter OTP code just before the npm publish command gets executed.
                   [--npm-browser-auth]             ➡ It will use npm's web-based auth (Passkeys / hardware security keys / WebAuthn) instead of a 6-digit OTP. Cannot be combined with `--npm-otp`
+                  [--skip-npm]                     ➡ It will skip the npm publish and version bump phase, creating only the GitHub release. Default `false`
                   [--major|-m]                     ➡ It will unlock the release of a major release
                   [--help|-h]                      ➡ Show this help message
 ```
